@@ -1,4 +1,0 @@
-GET /delivery/requests?notificationRequestId=WEVOVi1EUUVYLVZUUFctMjAyMjA3LVQtMQ== HTTP/1.1
-Host: api.dev.pn.pagopa.it
-Accept: application/json
-x-api-key: <API_KEY>
