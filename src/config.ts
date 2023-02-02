@@ -8,10 +8,10 @@ export type Config = {
   server: {
     hostname: string;
     port: number;
-  },
+  };
   openapi: {
     URL: string;
-  }
+  };
 };
 
 const EnvCodec = t.type({
@@ -20,7 +20,9 @@ const EnvCodec = t.type({
   OPENAPI_URL: t.string,
 });
 
-export const parseConfig = (envs: Record<string, undefined | string>): E.Either<string, Config> =>
+export const parseConfig = (
+  envs: Record<string, undefined | string>
+): E.Either<string, Config> =>
   pipe(
     EnvCodec.decode(envs),
     E.bimap(
@@ -31,7 +33,7 @@ export const parseConfig = (envs: Record<string, undefined | string>): E.Either<
           hostname: envs.HOSTNAME,
         },
         openapi: {
-            URL: envs.OPENAPI_URL
+          URL: envs.OPENAPI_URL,
         },
       })
     )
