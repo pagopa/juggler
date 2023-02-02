@@ -31,6 +31,7 @@
     "start:io": "OPENAPI_SPEC=$npm_package_config_openapi_io_apiPublicURL npm run start",
     "start:iosign": "OPENAPI_SPEC=$npm_package_config_openapi_iosign_issuerURL npm run start",
     "test": "DOTENV_CONFIG_PATH=./.env.default jest --setupFiles dotenv/config -i",
+    "test:coverage": "npm run test -- --coverage",
     "prepare": "husky install"
   },
   "repository": {

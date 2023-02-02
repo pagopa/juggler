@@ -15,7 +15,7 @@ export type Config = {
 };
 
 const EnvCodec = t.type({
-  PORT: t.string.pipe(tt.NumberFromString),
+  PORT: tt.NumberFromString,
   HOSTNAME: t.string,
   OPENAPI_URL: t.string,
 });
