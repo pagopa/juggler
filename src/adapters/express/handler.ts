@@ -3,6 +3,7 @@
  */
 import express from 'express';
 import { pipe } from 'fp-ts/lib/function';
+import * as O from 'fp-ts/lib/Option';
 import * as T from 'fp-ts/lib/Task';
 import * as TE from 'fp-ts/lib/TaskEither';
 import * as RR from 'fp-ts/lib/ReadonlyRecord';
@@ -38,6 +39,15 @@ const makeMethod = (
   }
 };
 
+const makeHeaders = (
+  headers: express.Request['headers']
+): MockRequest['headers'] =>
+  pipe(
+    headers,
+    RR.filterMap(O.fromNullable),
+    RR.map((value) => (Array.isArray(value) ? value.join(', ') : value))
+  );
+
 /**
  * Transform an {@link express.Request} to a {@link MockRequest}.
  * @internal
@@ -49,10 +59,7 @@ export const makeMockRequestFromExpressRequest = (
     path: request.path,
   },
   method: makeMethod(request.method),
-  headers: pipe(
-    request.headers,
-    RR.map((value) => (typeof value === 'string' ? value : ''))
-  ),
+  headers: makeHeaders(request.headers),
   body: request.body,
 });
 

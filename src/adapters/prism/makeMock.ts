@@ -15,9 +15,7 @@ import { Mock } from '../../domain/Mock';
  * Create a PrismHttp instance given a reference to an Open-API specification.
  * @internal
  */
-export const makePrismHttp = (
-  openapi: string
-): TE.TaskEither<Error, PrismHttp> =>
+const makePrismHttp = (openapi: string): TE.TaskEither<Error, PrismHttp> =>
   pipe(
     TE.tryCatch(() => getHttpOperationsFromSpec(openapi), E.toError),
     TE.map((operations) =>
