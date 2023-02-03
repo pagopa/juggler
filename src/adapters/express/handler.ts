@@ -16,7 +16,7 @@ const problemDetail500 = {
   detail: "I don't have any detail at the moment.",
 };
 
-const makeMethod = (
+export const makeMethod = (
   method: express.Request['method']
 ): MockRequest['method'] => {
   switch (method) {

@@ -1,8 +1,19 @@
 import express from 'express';
-import { makeMockRequestFromExpressRequest } from '../handler';
+import { makeMockRequestFromExpressRequest, makeMethod } from '../handler';
 
 describe('makeMockRequestFromExpressRequest', () => {
-  it('transform an express request without error', () => {
+  it('transform the express headers without error', () => {
+    expect(makeMethod('DELETE')).toStrictEqual('delete');
+    expect(makeMethod('GET')).toStrictEqual('get');
+    expect(makeMethod('HEAD')).toStrictEqual('head');
+    expect(makeMethod('OPTIONS')).toStrictEqual('options');
+    expect(makeMethod('PATCH')).toStrictEqual('patch');
+    expect(makeMethod('POST')).toStrictEqual('post');
+    expect(makeMethod('PUT')).toStrictEqual('put');
+    expect(makeMethod('TRACE')).toStrictEqual('trace');
+    expect(makeMethod('unknown')).toStrictEqual('trace');
+  });
+  it('transform the express request without error', () => {
     const expressRequest = {
       method: 'POST',
       url: 'http://127.0.0.1/hello?queryParam=42',
