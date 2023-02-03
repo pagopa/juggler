@@ -1,3 +1,6 @@
+/**
+ * This file provides the {@link express.Handler} that handles the mock capability.
+ */
 import express from 'express';
 import { pipe } from 'fp-ts/lib/function';
 import * as T from 'fp-ts/lib/Task';
@@ -35,6 +38,10 @@ const makeMethod = (
   }
 };
 
+/**
+ * Transform an {@link express.Request} to a {@link MockRequest}.
+ * @internal
+ */
 export const makeMockRequestFromExpressRequest = (
   request: express.Request
 ): MockRequest => ({
@@ -49,6 +56,9 @@ export const makeMockRequestFromExpressRequest = (
   body: request.body,
 });
 
+/**
+ * Create the {@link express.Handler} that manages the mock capability.
+ */
 export const makeHandler =
   (mock: Mock) =>
   (req: express.Request, res: express.Response): Promise<express.Response> =>
