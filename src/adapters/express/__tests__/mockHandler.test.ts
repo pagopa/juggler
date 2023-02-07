@@ -1,5 +1,5 @@
 import express from 'express';
-import { makeMockRequestFromExpressRequest, makeMethod } from '../handler';
+import { makeMockRequestFromExpressRequest, makeMethod } from '../mockHandler';
 
 describe('makeMockRequestFromExpressRequest', () => {
   it('transform the express headers without error', () => {
