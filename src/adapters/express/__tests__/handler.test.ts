@@ -16,7 +16,7 @@ describe('makeMockRequestFromExpressRequest', () => {
   it('transform the express request without error', () => {
     const expressRequest = {
       method: 'POST',
-      url: 'http://127.0.0.1/hello?queryParam=42',
+      path: 'http://127.0.0.1/hello?queryParam=42',
       headers: {
         'x-header-a': 'header-value',
         'x-header-b': ['header-a', 'header-b'],
@@ -28,7 +28,7 @@ describe('makeMockRequestFromExpressRequest', () => {
     } as unknown as express.Request;
     const actual = makeMockRequestFromExpressRequest(expressRequest);
     expect(actual).toStrictEqual({
-      url: { path: expressRequest.headers.path },
+      url: { path: expressRequest.path },
       method: 'post',
       headers: {
         'x-header-a': 'header-value',
