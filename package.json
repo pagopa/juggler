@@ -1,19 +1,71 @@
 {
-  "name": "pn-juggler",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@pagopa-dev/juggler",
+  "version": "1.0.0",
+  "description": "Are you looking for a quick way to mock some endpoints given an open API? The Juggler can do what you are looking for.",
+  "main": "dist/main.js",
+  "config": {
+    "openapi": {
+      "pn": {
+        "deliveryURL": "https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml",
+        "streamURL": "https://github.com/pagopa/pn-delivery-push/raw/a886f32/docs/openapi/api-external-b2b-webhook-v1.yaml"
+      },
+      "io": {
+        "apiPublicURL": "https://github.com/pagopa/io-backend/raw/d7dc36b/openapi/generated/api_public.yaml"
+      },
+      "iosign": {
+        "issuerURL": "https://github.com/pagopa/io-sign/raw/6a3d7b6/apps/io-func-sign-issuer/openapi.yaml"
+      },
+      "pagoPA": {
+        "todoURL": "TODO"
+      }
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "tsc --build --clean",
+    "compile": "tsc",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src",
+    "prettify": "prettier --write \"./**/*.ts\"",
+    "start": "npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=.env.default",
+    "start:pn": "OPENAPI_SPEC=$npm_package_config_openapi_pn_deliveryURL npm run start",
+    "start:io": "OPENAPI_SPEC=$npm_package_config_openapi_io_apiPublicURL npm run start",
+    "start:iosign": "OPENAPI_SPEC=$npm_package_config_openapi_iosign_issuerURL npm run start",
+    "test": "DOTENV_CONFIG_PATH=./.env.default jest --setupFiles dotenv/config -i",
+    "test:coverage": "npm run test -- --coverage",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pagopa/pn-juggler.git"
+    "url": "git+https://github.com/pagopa/juggler.git"
   },
+  "keywords": [],
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pagopa/pn-juggler/issues"
+    "url": "https://github.com/pagopa/juggler/issues"
   },
-  "homepage": "https://github.com/pagopa/pn-juggler#readme"
+  "homepage": "https://github.com/pagopa/juggler#readme",
+  "devDependencies": {
+    "@pagopa/eslint-config": "^3.0.0",
+    "@types/express": "^4.17.16",
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.11.18",
+    "dotenv": "^16.0.3",
+    "eslint": "^8.33.0",
+    "husky": "^8.0.0",
+    "jest": "^29.4.1",
+    "prettier": "^2.8.3",
+    "shx": "^0.3.4",
+    "ts-jest": "^29.0.5",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@stoplight/prism-cli": "^4.10.5",
+    "@stoplight/prism-http": "^4.10.5",
+    "express": "^4.18.2",
+    "fp-ts": "^2.13.1",
+    "io-ts": "^2.2.20",
+    "io-ts-types": "^0.5.19",
+    "pino": "^8.8.0"
+  }
 }
