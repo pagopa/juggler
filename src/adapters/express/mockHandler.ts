@@ -9,13 +9,7 @@ import * as RR from 'fp-ts/lib/ReadonlyRecord';
 import { MockRequest } from '../../domain/Mock';
 import { processRequest } from '../../useCases/processRequest';
 import { AppEnv } from './AppEnv';
-
-// Following the structure defined by RFC7807 (https://www.rfc-editor.org/rfc/rfc7807#section-3.1)
-const problemDetail500 = {
-  status: 500,
-  title: 'Something really bad happened.',
-  detail: "I don't have any detail at the moment.",
-};
+import { problemDetail500 } from './errors';
 
 export const makeMethod = (
   method: express.Request['method']
