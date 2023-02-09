@@ -25,6 +25,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate
+        run: npm run generate:api
+
       - name: Compile
         run: npm run compile
 
