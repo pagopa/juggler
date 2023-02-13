@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/lib/function';
 import * as TE from 'fp-ts/lib/TaskEither';
+import { Capabilities } from '@juggler/core/dist/domain/Capabilities';
 import { Config } from '../../config';
-import { Capabilities } from '../../domain/Capabilities';
 import { makeRequestResponseStore } from '../array/makeRequestResponseStore';
 import { makeMock } from '../prism/makeMock';
 

@@ -2,14 +2,11 @@
   "name": "@juggler/core",
   "version": "1.0.0",
   "description": "This module contains the core part of juggler",
-  "config": {
-    "codegen": {
-      "targetDir": "./src/adapters/express/generated/apicodec"
-    }
-  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "generate:api": "shx rm -rf $npm_package_config_codegen_targetDir && shx mkdir -p $npm_package_config_codegen_targetDir && gen-api-models --api-spec ../../docs/openapi/juggler.yaml --no-strict --out-dir $npm_package_config_codegen_targetDir",
-    "clean": "tsc --build --clean",
+    "clean": "shx rm -rf dist && tsc --build --clean",
     "compile": "tsc",
     "start": "npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=../../.env.default"
   },

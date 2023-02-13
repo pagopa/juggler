@@ -3,7 +3,7 @@ import {
   RequestResponseWriter,
   RequestResponseReader,
   RequestResponse,
-} from '../../domain/RequestResponse';
+} from '@juggler/core/src/domain/RequestResponse';
 
 export const makeRequestResponseStore = (
   snapshot: ReadonlyArray<RequestResponse>

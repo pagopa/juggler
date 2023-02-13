@@ -6,8 +6,8 @@ import { pipe } from 'fp-ts/lib/function';
 import * as O from 'fp-ts/lib/Option';
 import * as RTE from 'fp-ts/lib/ReaderTaskEither';
 import * as RR from 'fp-ts/lib/ReadonlyRecord';
-import { MockRequest } from '../../domain/Mock';
-import { processRequest } from '../../useCases/processRequest';
+import { MockRequest } from '@juggler/core/dist/domain/Mock';
+import { processRequest } from '@juggler/core/dist/useCases/processRequest';
 import { AppEnv } from './AppEnv';
 import { problemDetail500 } from './errors';
 

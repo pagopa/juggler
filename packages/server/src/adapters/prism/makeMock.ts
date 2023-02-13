@@ -9,7 +9,7 @@ import {
   createClientFromOperations,
   PrismHttp,
 } from '@stoplight/prism-http/dist/client';
-import { Mock } from '../../domain/Mock';
+import { Mock } from '@juggler/core/dist/domain/Mock';
 
 /**
  * Create a PrismHttp instance given a reference to an Open-API specification.

@@ -15,6 +15,16 @@ module.exports = {
     "./__tests__/data.ts",
     "dist/*"
   ],
+  collectCoverage: true,
+  coverageDirectory: "coverage",
+  collectCoverageFrom: [
+    "packages/**/*.{ts,js,jsx}"
+  ],
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "/dist/",
+    "/generated/"
+  ],
   "coverageThreshold": {
     "global": {
       "branches": 70,
