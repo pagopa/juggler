@@ -14,8 +14,7 @@ describe('processRequest', () => {
     const { env, envData } = makeFakeCapabilities();
 
     await processRequest(envData.mock.aMockRequest)(env)();
-    const exptected = envData.requestResponse.aRequestResponse;
-    expect(env.requestResponseWriter.record).toBeCalledTimes(1);
-    expect(env.requestResponseWriter.record).toBeCalledWith(exptected);
+    const expected = envData.requestResponse.aRequestResponse;
+    expect(env.requestResponseWriter.record).nthCalledWith(1, expected);
   });
 });
