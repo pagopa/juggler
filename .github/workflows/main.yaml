@@ -26,7 +26,7 @@ jobs:
         run: npm ci
 
       - name: Generate
-        run: npm run generate:api
+        run: npm run generate
 
       - name: Compile
         run: npm run compile
