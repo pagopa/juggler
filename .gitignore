@@ -316,4 +316,4 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/node,emacs,jetbrains+all,macos
 
 # Add generated stuff
-src/adapters/express/generated
+packages/core/src/adapters/express/generated
