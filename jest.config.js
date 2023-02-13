@@ -1,6 +1,6 @@
 module.exports = {
   "roots": [
-    "<rootDir>/src"
+    "<rootDir>/packages/"
   ],
   "testMatch": [
     "**/__tests__/**/*.+(ts|tsx|js)",
@@ -13,6 +13,7 @@ module.exports = {
   },
   "modulePathIgnorePatterns": [
     "./__tests__/data.ts",
+    "dist/*"
   ],
   "coverageThreshold": {
     "global": {

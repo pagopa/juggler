@@ -1,0 +1,30 @@
+{
+  "name": "@juggler/core",
+  "version": "1.0.0",
+  "description": "This module contains the core part of juggler",
+  "config": {
+    "codegen": {
+      "targetDir": "./src/adapters/express/generated/apicodec"
+    }
+  },
+  "scripts": {
+    "generate:api": "shx rm -rf $npm_package_config_codegen_targetDir && shx mkdir -p $npm_package_config_codegen_targetDir && gen-api-models --api-spec ../../docs/openapi/juggler.yaml --no-strict --out-dir $npm_package_config_codegen_targetDir",
+    "clean": "tsc --build --clean",
+    "compile": "tsc",
+    "start": "npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=../../.env.default"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pagopa/juggler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pagopa/juggler/issues"
+  },
+  "homepage": "https://github.com/pagopa/juggler#readme",
+  "dependencies": {
+    "@stoplight/prism-cli": "^4.10.5"
+  }
+}

@@ -1,9 +1,11 @@
 {
-  "name": "uidashboard",
+  "name": "@juggler/ui-dashboard",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://0.0.0.0:8081",
   "scripts": {
+    "clean": "tsc --build --clean",
+    "compile": "tsc",
     "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

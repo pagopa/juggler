@@ -1,12 +1,7 @@
 {
-  "name": "@pagopa-dev/juggler",
-  "version": "1.0.0",
+  "private": true,
   "description": "Are you looking for a quick way to mock some endpoints given an open API? The Juggler can do what you are looking for.",
-  "main": "dist/main.js",
   "config": {
-    "codegen": {
-      "targetDir": "./src/adapters/express/generated/apicodec"
-    },
     "openapi": {
       "pn": {
         "deliveryURL": "https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml",
@@ -24,15 +19,14 @@
     }
   },
   "scripts": {
-    "generate:api": "shx rm -rf $npm_package_config_codegen_targetDir && shx mkdir -p $npm_package_config_codegen_targetDir && gen-api-models --api-spec ./docs/openapi/juggler.yaml --no-strict --out-dir $npm_package_config_codegen_targetDir",
-    "clean": "tsc --build --clean",
-    "compile": "tsc",
-    "lint": "eslint src",
-    "lint:fix": "eslint --fix src",
+    "generate": "npm run generate:api -w ./packages/core",
+    "clean": "npm run clean -ws",
+    "compile": "npm run compile -ws",
+    "lint": "eslint --ext .ts packages/",
+    "lint:fix": "npm run lint -- --fix",
     "prettify": "prettier --write \"./**/*.ts\"",
     "start:client": "cd uidashboard && npm run start",
-    "start:server": "npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=.env.default",
-    "start": "concurrently -k \"PORT=8081 npm run start:server\" \"PORT=8080 npm run start:client\"",
+    "start": "concurrently -k \"PORT=8081 npm run start -w ./packages/core\" \"PORT=8080 npm run start -w ./packages/ui-dashboard\"",
     "start:pn": "OPENAPI_SPEC=$npm_package_config_openapi_pn_deliveryURL npm run start",
     "start:io": "OPENAPI_SPEC=$npm_package_config_openapi_io_apiPublicURL npm run start",
     "start:iosign": "OPENAPI_SPEC=$npm_package_config_openapi_iosign_issuerURL npm run start",
@@ -69,12 +63,13 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "@stoplight/prism-cli": "^4.10.5",
-    "@stoplight/prism-http": "^4.10.5",
     "express": "^4.18.2",
     "fp-ts": "^2.13.1",
     "io-ts": "^2.2.20",
     "io-ts-types": "^0.5.19",
     "pino": "^8.8.0"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
