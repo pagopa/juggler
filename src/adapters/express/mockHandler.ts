@@ -4,17 +4,12 @@
 import express from 'express';
 import { pipe } from 'fp-ts/lib/function';
 import * as O from 'fp-ts/lib/Option';
-import * as T from 'fp-ts/lib/Task';
-import * as TE from 'fp-ts/lib/TaskEither';
+import * as RTE from 'fp-ts/lib/ReaderTaskEither';
 import * as RR from 'fp-ts/lib/ReadonlyRecord';
-import { Mock, MockRequest } from '../../domain/Mock';
-
-// Following the structure defined by RFC7807 (https://www.rfc-editor.org/rfc/rfc7807#section-3.1)
-const problemDetail500 = {
-  status: 500,
-  title: 'Something really bad happened.',
-  detail: "I don't have any detail at the moment.",
-};
+import { MockRequest } from '../../domain/Mock';
+import { processRequest } from '../../useCases/processRequest';
+import { AppEnv } from './AppEnv';
+import { problemDetail500 } from './errors';
 
 export const makeMethod = (
   method: express.Request['method']
@@ -66,14 +61,15 @@ export const makeMockRequestFromExpressRequest = (
 /**
  * Create the {@link express.Handler} that manages the mock capability.
  */
-export const makeHandler =
-  (mock: Mock) =>
+export const makeMockHandler =
+  (env: AppEnv) =>
   (req: express.Request, res: express.Response): Promise<express.Response> =>
     pipe(
-      mock.generateResponse(makeMockRequestFromExpressRequest(req)),
-      TE.fold(
-        (_) => T.of(res.status(500).json(problemDetail500)),
+      processRequest(makeMockRequestFromExpressRequest(req)),
+      RTE.fold(
+        (_) => RTE.of(res.status(500).json(problemDetail500)),
         ({ status, headers, data }) =>
-          T.of(res.status(status).header(headers).send(data))
-      )
-    )();
+          RTE.of(res.status(status).header(headers).send(data))
+      ),
+      RTE.toUnion
+    )(env)();

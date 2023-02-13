@@ -4,6 +4,9 @@
   "description": "Are you looking for a quick way to mock some endpoints given an open API? The Juggler can do what you are looking for.",
   "main": "dist/main.js",
   "config": {
+    "codegen": {
+      "targetDir": "./src/adapters/express/generated/apicodec"
+    },
     "openapi": {
       "pn": {
         "deliveryURL": "https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml",
@@ -21,6 +24,7 @@
     }
   },
   "scripts": {
+    "generate:api": "shx rm -rf $npm_package_config_codegen_targetDir && shx mkdir -p $npm_package_config_codegen_targetDir && gen-api-models --api-spec ./docs/openapi/juggler.yaml --no-strict --out-dir $npm_package_config_codegen_targetDir",
     "clean": "tsc --build --clean",
     "compile": "tsc",
     "lint": "eslint src",
@@ -47,6 +51,7 @@
   "homepage": "https://github.com/pagopa/juggler#readme",
   "devDependencies": {
     "@pagopa/eslint-config": "^3.0.0",
+    "@pagopa/openapi-codegen-ts": "^12.1.2",
     "@types/express": "^4.17.16",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.11.18",

@@ -281,3 +281,6 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains+all,emacs,node
+
+# Add generated stuff
+src/adapters/express/generated

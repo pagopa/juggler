@@ -6,17 +6,19 @@ import express from 'express';
 import * as E from 'fp-ts/Either';
 import * as TE from 'fp-ts/TaskEither';
 import { Config } from '../../config';
-import { Mock } from '../../domain/Mock';
-import { makeHandler } from './handler';
+import { makeMockHandler } from './mockHandler';
+import { AppEnv } from './AppEnv';
+import { makeGetRequestResponseRouter } from './getRequestResponseRouter';
 
 /**
  * Create an instance of {@link express.Application} given all the required capabilities.
  */
-export const makeApplication = (mock: Mock): express.Application => {
+export const makeApplication = (env: AppEnv): express.Application => {
   const application = express();
   application.use(express.json());
 
-  application.use(makeHandler(mock));
+  application.use(makeGetRequestResponseRouter(env));
+  application.use(makeMockHandler(env));
 
   return application;
 };
