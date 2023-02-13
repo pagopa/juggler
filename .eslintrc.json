@@ -4,6 +4,7 @@
     "node": true
   },
   "extends": ["@pagopa/eslint-config/recommended"],
+  "ignorePatterns": ["**/generated/"],
   "overrides": [
     {
       "files": ["**/*.spec.ts"],
