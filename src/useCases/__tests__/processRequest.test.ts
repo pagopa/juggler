@@ -7,8 +7,8 @@ describe('processRequest', () => {
     const { env, envData } = makeFakeCapabilities();
 
     const actual = await processRequest(envData.mock.aMockRequest)(env)();
-    const exptected = envData.requestResponse.aRequestResponse.response;
-    expect(actual).toStrictEqual(E.right(exptected));
+    const expected = envData.requestResponse.aRequestResponse.response;
+    expect(actual).toStrictEqual(E.right(expected));
   });
   it('should record the request-response pair', async () => {
     const { env, envData } = makeFakeCapabilities();
