@@ -1,9 +1,9 @@
 import { pipe } from 'fp-ts/lib/function';
 import * as TE from 'fp-ts/lib/TaskEither';
 import { Capabilities } from '@juggler/core/dist/domain/Capabilities';
+import { makeRequestResponseStore } from '@juggler/core/dist/adapters/array/makeRequestResponseStore';
+import { makeMock } from '@juggler/core/dist/adapters/prism/makeMock';
 import { Config } from '../../config';
-import { makeRequestResponseStore } from '../array/makeRequestResponseStore';
-import { makeMock } from '../prism/makeMock';
 
 export type AppEnv = Capabilities;
 
