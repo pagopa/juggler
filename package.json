@@ -1,6 +1,8 @@
 {
   "private": true,
-  "description": "Are you looking for a quick way to mock some endpoints given an open API? The Juggler can do what you are looking for.",
+  "workspaces": [
+    "packages/*"
+  ],
   "config": {
     "openapi": {
       "pn": {
@@ -34,17 +36,6 @@
     "test:coverage": "npm run test -- --coverage",
     "prepare": "husky install"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pagopa/juggler.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/pagopa/juggler/issues"
-  },
-  "homepage": "https://github.com/pagopa/juggler#readme",
   "devDependencies": {
     "@pagopa/eslint-config": "^3.0.0",
     "@types/jest": "^29.4.0",
@@ -65,8 +56,5 @@
     "io-ts": "^2.2.20",
     "io-ts-types": "^0.5.19",
     "pino": "^8.8.0"
-  },
-  "workspaces": [
-    "packages/*"
-  ]
+  }
 }
