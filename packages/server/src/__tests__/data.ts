@@ -1,3 +1,4 @@
+import path from 'path';
 import { Config } from '../config';
 
 export const envs: NodeJS.ProcessEnv = {
@@ -12,4 +13,5 @@ export const config: Config = {
   openapi: {
     URL: envs.OPENAPI_URL as string,
   },
+  rootDir: path.resolve(path.join(__dirname, '..')),
 };

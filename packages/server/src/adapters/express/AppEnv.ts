@@ -5,7 +5,7 @@ import { makeRequestResponseStore } from '@juggler/core/dist/adapters/array/make
 import { makeMock } from '@juggler/core/dist/adapters/prism/makeMock';
 import { Config } from '../../config';
 
-export type AppEnv = Capabilities;
+export type AppEnv = Capabilities & Config;
 
 /**
  * Given the config returns an AppEnv.
@@ -16,6 +16,7 @@ export const makeAppEnv = (config: Config): TE.TaskEither<Error, AppEnv> =>
     TE.apS('mock', makeMock(config.openapi.URL)),
     TE.apS('requestResponseStore', TE.of(makeRequestResponseStore([]))),
     TE.map(({ mock, requestResponseStore }) => ({
+      ...config,
       mock,
       requestResponseReader: requestResponseStore,
       requestResponseWriter: requestResponseStore,
