@@ -18,9 +18,9 @@ export const makeApplication = (env: AppEnv): express.Application => {
   const application = express();
   application.use(express.json());
 
+  application.use(makeUIDashboardRouter(env));
   application.use(makeGetRequestResponseRouter(env));
   application.use(makeMockHandler(env));
-  application.use(makeUIDashboardRouter());
 
   return application;
 };
