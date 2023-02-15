@@ -15,7 +15,7 @@ module.exports = {
     "./__tests__/data.ts",
     "dist/*"
   ],
-  collectCoverage: true,
+  collectCoverage: false,
   coverageDirectory: "coverage",
   collectCoverageFrom: [
     "packages/**/*.{ts,js,jsx}"
