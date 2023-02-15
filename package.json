@@ -30,7 +30,7 @@
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
     "prettify": "prettier --write \"./**/*.ts\"",
-    "start:client": "cd uidashboard && npm run start",
+    "start:client": "cd ui-dashboard && npm run start",
     "start:server": "npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=.env.default",
     "start": "concurrently -k \"PORT=8081 npm run start:server\" \"PORT=8080 npm run start:client\"",
     "start:pn": "OPENAPI_SPEC=$npm_package_config_openapi_pn_deliveryURL npm run start",
