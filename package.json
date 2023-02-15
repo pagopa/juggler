@@ -4,6 +4,9 @@
     "packages/*"
   ],
   "config": {
+    "codegen": {
+      "targetDir": "./src/adapters/express/generated/apicodec"
+    },
     "openapi": {
       "pn": {
         "deliveryURL": "https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml",
