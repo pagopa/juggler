@@ -30,7 +30,6 @@
     "lint": "eslint --ext .ts packages/",
     "lint:fix": "npm run lint -- --fix",
     "prettify": "prettier --write \"./**/*.ts\"",
-    "start:client": "cd uidashboard && npm run start",
     "start": "npm run compile && concurrently -k \"PORT=8081 npm run start -w ./packages/server\" \"PORT=8080 npm run start -w ./packages/ui-dashboard\"",
     "start:pn": "OPENAPI_SPEC=$npm_package_config_openapi_pn_deliveryURL npm run start",
     "start:io": "OPENAPI_SPEC=$npm_package_config_openapi_io_apiPublicURL npm run start",
