@@ -9,6 +9,7 @@ import { Config } from '../../config';
 import { makeMockHandler } from './mockHandler';
 import { AppEnv } from './AppEnv';
 import { makeGetRequestResponseRouter } from './getRequestResponseRouter';
+import { makeUIDashboardRouter } from './makeUIDashboardRouter';
 
 /**
  * Create an instance of {@link express.Application} given all the required capabilities.
@@ -17,6 +18,7 @@ export const makeApplication = (env: AppEnv): express.Application => {
   const application = express();
   application.use(express.json());
 
+  application.use(makeUIDashboardRouter(env));
   application.use(makeGetRequestResponseRouter(env));
   application.use(makeMockHandler(env));
 
