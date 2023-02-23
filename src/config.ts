@@ -12,7 +12,6 @@ export type Config = {
   openapi: {
     URL: string;
   };
-  rootDir: string;
 };
 
 const EnvCodec = t.type({
@@ -29,7 +28,6 @@ export const parseConfig = (
     E.bimap(
       (errors) => PR.failure(errors).join('\n'),
       (envs) => ({
-        rootDir: __dirname,
         server: {
           port: envs.PORT,
           hostname: envs.HOSTNAME,

@@ -4,10 +4,7 @@
 import { pipe } from 'fp-ts/lib/function';
 import * as T from 'fp-ts/lib/Task';
 import * as TE from 'fp-ts/lib/TaskEither';
-import {
-  makeApplication,
-  startApplication,
-} from './adapters/express/application';
+import { startApplication } from './adapters/express/application';
 import { parseConfig } from './config';
 import { makeAppEnv } from './adapters/express/AppEnv';
 
@@ -16,7 +13,7 @@ void pipe(
   TE.chain((config) =>
     pipe(
       makeAppEnv(config),
-      TE.chain((env) => startApplication(config, makeApplication(env))),
+      TE.chain(startApplication),
       TE.bimap(
         (error) => JSON.stringify(error),
         (server) => `Server is listening on ${JSON.stringify(server.address())}`
