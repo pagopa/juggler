@@ -38,7 +38,8 @@ export const startApplication = (
   env: AppEnv
 ): TE.TaskEither<Error, http.Server> => {
   const { hostname, port } = env.server;
-  const nextServer = next({ dev: true, hostname, port });
+  const dev = env.nodeEnv === 'development';
+  const nextServer = next({ dev, hostname, port });
   const application = makeApplication(env, nextServer);
 
   const promise = new Promise<http.Server>((resolve, reject) => {
