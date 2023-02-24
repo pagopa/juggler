@@ -1,7 +1,5 @@
+import JsonViewer from '@textea/json-viewer';
 import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-
-const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
 const HomePage = () => {
   const [requestResponse, setRequestResponse] = useState([]);
@@ -19,7 +17,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <DynamicReactJson
+      <JsonViewer
         name={false}
         src={requestResponse}
         collapsed={2}
