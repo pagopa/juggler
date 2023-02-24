@@ -23,3 +23,5 @@ To spin up the mock just run the following command:
 ``` sh
 npm run start
 ```
+
+You can access the dashboard by visiting the path `/ui/dashboard`.
