@@ -38,21 +38,19 @@ export const startApplication = (
   env: AppEnv
 ): TE.TaskEither<Error, http.Server> => {
   const { hostname, port } = env.server;
-  const dev = env.nodeEnv === 'development';
-  const nextServer = next({ dev, hostname, port });
-  const application = makeApplication(env, nextServer);
+  const nextServer = next({ dev: true, hostname, port });
 
-  const promise = new Promise<http.Server>((resolve, reject) => {
-    nextServer
-      .prepare()
-      .then(() => {
-        const server = http.createServer(application);
-        server.listen(port, hostname, () => resolve(server));
-        server.once('error', (error) =>
-          server.listening === false ? reject(error) : {}
-        );
-      })
-      .catch((error) => reject(error));
-  });
-  return TE.tryCatch(() => promise, E.toError);
+  return TE.tryCatch(
+    () =>
+      new Promise<http.Server>((resolve, reject) => {
+        void nextServer.prepare().then(() => {
+          const server = http.createServer(makeApplication(env, nextServer));
+          server.listen(port, hostname, () => resolve(server));
+          server.once('error', (error) =>
+            server.listening === false ? reject(error) : {}
+          );
+        });
+      }),
+    E.toError
+  );
 };
