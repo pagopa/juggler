@@ -1,25 +1,18 @@
+import useSWR from 'swr';
 import JsonViewer from '@textea/json-viewer';
-import { useEffect, useState } from 'react';
 
 const HomePage = () => {
-  const [requestResponse, setRequestResponse] = useState([]);
-
-  const fetchData = () => {
-    fetch('http://localhost:8080/api/requestresponse')
-      .then((response) => response.json())
-      .then((data) => setRequestResponse(data))
-      .catch(() => setRequestResponse([]));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // For now keep it simple, but at some point create a separate
+  // method where check the status code and parse the response
+  const { data } = useSWR('/api/requestresponse', (url: string) =>
+    fetch(url).then((res) => res.json())
+  );
 
   return (
     <div>
       <JsonViewer
         name={false}
-        src={requestResponse}
+        src={data}
         collapsed={2}
         iconStyle={'triangle'}
         enableClipboard={false}
