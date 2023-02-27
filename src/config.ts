@@ -12,13 +12,19 @@ export type Config = {
   openapi: {
     URL: string;
   };
-  rootDir: string;
+  nodeEnv: 'development' | 'production' | 'test';
 };
 
 const EnvCodec = t.type({
   PORT: tt.NumberFromString,
   HOSTNAME: t.string,
   OPENAPI_URL: t.string,
+  NODE_ENV: t.union([
+    t.literal('development'),
+    t.literal('production'),
+    t.literal('test'),
+    t.undefined,
+  ]),
 });
 
 export const parseConfig = (
@@ -29,7 +35,6 @@ export const parseConfig = (
     E.bimap(
       (errors) => PR.failure(errors).join('\n'),
       (envs) => ({
-        rootDir: __dirname,
         server: {
           port: envs.PORT,
           hostname: envs.HOSTNAME,
@@ -37,6 +42,7 @@ export const parseConfig = (
         openapi: {
           URL: envs.OPENAPI_URL,
         },
+        nodeEnv: envs.NODE_ENV || 'development',
       })
     )
   );

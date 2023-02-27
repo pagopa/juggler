@@ -5,20 +5,26 @@ import http from 'http';
 import express from 'express';
 import * as E from 'fp-ts/Either';
 import * as TE from 'fp-ts/TaskEither';
-import { Config } from '../../config';
+import next from 'next';
+import { NextServer } from 'next/dist/server/next';
 import { makeMockHandler } from './mockHandler';
 import { AppEnv } from './AppEnv';
 import { makeGetRequestResponseRouter } from './getRequestResponseRouter';
-import { makeUIDashboardRouter } from './makeUIDashboardRouter';
 
 /**
  * Create an instance of {@link express.Application} given all the required capabilities.
  */
-export const makeApplication = (env: AppEnv): express.Application => {
+const makeApplication = (
+  env: AppEnv,
+  nextServer: NextServer
+): express.Application => {
   const application = express();
+  const nextHandler = nextServer.getRequestHandler();
   application.use(express.json());
 
-  application.use(makeUIDashboardRouter(env));
+  // TODO remove duplication of this "ui" and the value of basePath on
+  // next.config.js they should be the same value
+  application.all('/ui/*', (req, res) => nextHandler(req, res));
   application.use(makeGetRequestResponseRouter(env));
   application.use(makeMockHandler(env));
 
@@ -29,16 +35,22 @@ export const makeApplication = (env: AppEnv): express.Application => {
  * Start the provided {@link express.Application} using the given configuration.
  */
 export const startApplication = (
-  config: Config,
-  application: express.Application
+  env: AppEnv
 ): TE.TaskEither<Error, http.Server> => {
-  const server = http.createServer(application);
-  const { hostname, port } = config.server;
-  const promise = new Promise<http.Server>((resolve, reject) => {
-    server.listen(port, hostname, () => resolve(server));
-    server.once('error', (error) =>
-      server.listening === false ? reject(error) : {}
-    );
-  });
-  return TE.tryCatch(() => promise, E.toError);
+  const { hostname, port } = env.server;
+  const nextServer = next({ dev: true, hostname, port });
+
+  return TE.tryCatch(
+    () =>
+      new Promise<http.Server>((resolve, reject) => {
+        void nextServer.prepare().then(() => {
+          const server = http.createServer(makeApplication(env, nextServer));
+          server.listen(port, hostname, () => resolve(server));
+          server.once('error', (error) =>
+            server.listening === false ? reject(error) : {}
+          );
+        });
+      }),
+    E.toError
+  );
 };

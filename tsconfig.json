@@ -6,8 +6,28 @@
     "target": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": false,
+    "noEmit": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": false
   },
-  "include": [ "src" ],
-  "lib": ["es2015"]
+  "include": [
+    "src"
+  ],
+  "lib": [
+    "es2015"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
