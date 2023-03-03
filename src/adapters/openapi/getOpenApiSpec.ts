@@ -1,12 +1,8 @@
 import fs from 'fs';
-import * as TE from 'fp-ts/TaskEither';
+import * as TE from 'fp-ts/lib/TaskEither';
 import { flow, pipe } from 'fp-ts/lib/function';
 import SwaggerParser from '@apidevtools/swagger-parser';
-
-type FetchedContent = {
-  content: string;
-  fromOrigin: boolean;
-};
+import { FetchedContent } from '../../domain/FetchedContent';
 
 /**
  * Try to bundle the OpenAPI specification from the specified URL.
