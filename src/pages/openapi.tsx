@@ -44,12 +44,21 @@ const ApiViewer = ({ spec, error }: ApiViewerProps) => (
     {
       // If there is an error retrieving the spec, show it
       error && (
-        <Alert variant="filled" severity="warning">
-          {error}
-        </Alert>
+        <div data-testid="warning-panel">
+          <Alert variant="filled" severity="warning">
+            {error}
+          </Alert>
+        </div>
       )
     }
-    {spec && <SwaggerUI spec={spec} />}
+    {
+      // If there is the OpenAPI spec, show it
+      spec && (
+        <div data-testid="openapi-doc">
+          <SwaggerUI spec={spec} />
+        </div>
+      )
+    }
   </div>
 );
 
