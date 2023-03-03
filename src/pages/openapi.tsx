@@ -1,3 +1,4 @@
+import path from 'path';
 import * as T from 'fp-ts/Task';
 import * as TE from 'fp-ts/lib/TaskEither';
 import { GetServerSideProps } from 'next';
@@ -6,7 +7,6 @@ import SwaggerUI from 'swagger-ui-react';
 import 'swagger-ui-react/swagger-ui.css';
 import { pipe } from 'fp-ts/lib/function';
 import { fetchOpenApiContent } from '../adapters/openapi/getOpenApiSpec';
-import path from "path";
 
 type ApiViewerProps = {
   spec: string | null;
