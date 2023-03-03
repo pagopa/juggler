@@ -38,19 +38,17 @@ export const getServerSideProps: GetServerSideProps<ApiViewerProps> = () => {
 };
 
 const ApiViewer = ({ spec, error }: ApiViewerProps) => (
-  <>
-    <div>
-      {
-        // If there is an error retrieving the spec, show it
-        error && (
-          <Alert variant="filled" severity="warning">
-            {error}
-          </Alert>
-        )
-      }
-      {spec && <SwaggerUI spec={spec} />}
-    </div>
-  </>
+  <div>
+    {
+      // If there is an error retrieving the spec, show it
+      error && (
+        <Alert variant="filled" severity="warning">
+          {error}
+        </Alert>
+      )
+    }
+    {spec && <SwaggerUI spec={spec} />}
+  </div>
 );
 
 export default ApiViewer;
