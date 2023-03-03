@@ -1,4 +1,5 @@
 import * as T from 'fp-ts/Task';
+import * as TE from 'fp-ts/lib/TaskEither';
 import { GetServerSideProps } from 'next';
 import { Alert } from '@mui/material';
 import SwaggerUI from 'swagger-ui-react';
@@ -7,7 +8,7 @@ import { pipe } from 'fp-ts/lib/function';
 import { fetchOpenApiContent } from '../adapters/openapi/getOpenApiSpec';
 
 type ApiViewerProps = {
-  spec: string;
+  spec: string | null;
   error: string | null;
 };
 
@@ -15,14 +16,24 @@ export const getServerSideProps: GetServerSideProps<ApiViewerProps> = () => {
   const openApiUrlString = process.env.OPENAPI_URL || '';
   return pipe(
     fetchOpenApiContent(openApiUrlString),
-    T.map(({ content: spec, fromOrigin }) => ({
-      props: {
-        spec,
-        error: fromOrigin
-          ? null
-          : 'There was an error with the OpenAPI specification provided. Please check the URL and try again. Here is the OpenAPI specification of the Juggler.',
-      },
-    }))
+    TE.foldW(
+      ({ message }) =>
+        T.of({
+          props: {
+            spec: null,
+            error: message,
+          },
+        }),
+      ({ content, fromOrigin }) =>
+        T.of({
+          props: {
+            spec: content,
+            error: fromOrigin
+              ? null
+              : 'There was an error with the OpenAPI specification provided. Please check the URL and try again. Here is the OpenAPI specification of the Juggler.',
+          },
+        })
+    )
   )();
 };
 
@@ -37,7 +48,7 @@ const ApiViewer = ({ spec, error }: ApiViewerProps) => (
           </Alert>
         )
       }
-      <SwaggerUI spec={spec} />
+      {spec && <SwaggerUI spec={spec} />}
     </div>
   </>
 );

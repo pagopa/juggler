@@ -1,6 +1,5 @@
 import fs from 'fs';
 import * as TE from 'fp-ts/TaskEither';
-import * as T from 'fp-ts/Task';
 import { flow, pipe } from 'fp-ts/lib/function';
 import SwaggerParser from '@apidevtools/swagger-parser';
 
@@ -29,6 +28,15 @@ const tryToBundleOpenApi = (
     )
   );
 
+const readSpecFromFile = (path: string): TE.TaskEither<Error, FetchedContent> =>
+  pipe(
+    TE.tryCatch(
+      () => fs.promises.readFile(path, 'utf8'),
+      (_) => new Error('Something went wrong!')
+    ),
+    TE.map((content) => ({ content, fromOrigin: false }))
+  );
+
 /**
  * Fetch the OpenAPI specification from the specified URL.
  * If the URL is not valid, or doesn't point to a valid OpenAPI specification,
@@ -36,15 +44,13 @@ const tryToBundleOpenApi = (
  * to the Juggler.
  *
  * @param url The URL of the OpenAPI specification
- * @returns A {@link T.Task} containing the {@link FetchedContent}.
+ * @returns A {@link TE.TaskEither} containing on the left an {@link Error} if the URL is not valid,
+ * or on the right the bundled OpenAPI specification (as {@link FetchedContent}).
  */
-export const fetchOpenApiContent = (url: string) =>
+export const fetchOpenApiContent = (
+  url: string
+): TE.TaskEither<Error, FetchedContent> =>
   pipe(
     tryToBundleOpenApi(url),
-    TE.getOrElse(() =>
-      T.of({
-        content: fs.readFileSync('docs/openapi/juggler.yaml', 'utf8'), // TODO: Refactor using IO
-        fromOrigin: false,
-      })
-    )
+    TE.orElse(() => readSpecFromFile('docs/openapi/juggler.yaml'))
   );
