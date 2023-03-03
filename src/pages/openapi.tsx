@@ -31,7 +31,11 @@ const ApiViewer = ({ spec, error }: ApiViewerProps) => (
     <div>
       {
         // If there is an error retrieving the spec, show it
-        error && <Alert severity="warning">{error}</Alert>
+        error && (
+          <Alert variant="filled" severity="warning">
+            {error}
+          </Alert>
+        )
       }
       <SwaggerUI spec={spec} />
     </div>
