@@ -40,13 +40,15 @@ const readSpecFromFile = (path: string): TE.TaskEither<Error, FetchedContent> =>
  * to the Juggler.
  *
  * @param url The URL of the OpenAPI specification
+ * @param localPath The path of the bundled OpenAPI specification to use if the URL is not valid
  * @returns A {@link TE.TaskEither} containing on the left an {@link Error} if the URL is not valid,
  * or on the right the bundled OpenAPI specification (as {@link FetchedContent}).
  */
 export const fetchOpenApiContent = (
-  url: string
+  url: string,
+  localPath: string
 ): TE.TaskEither<Error, FetchedContent> =>
   pipe(
     tryToBundleOpenApi(url),
-    TE.orElse(() => readSpecFromFile('docs/openapi/juggler.yaml'))
+    TE.orElse(() => readSpecFromFile(localPath))
   );

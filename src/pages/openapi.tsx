@@ -6,6 +6,7 @@ import SwaggerUI from 'swagger-ui-react';
 import 'swagger-ui-react/swagger-ui.css';
 import { pipe } from 'fp-ts/lib/function';
 import { fetchOpenApiContent } from '../adapters/openapi/getOpenApiSpec';
+import path from "path";
 
 type ApiViewerProps = {
   spec: string | null;
@@ -14,8 +15,9 @@ type ApiViewerProps = {
 
 export const getServerSideProps: GetServerSideProps<ApiViewerProps> = () => {
   const openApiUrlString = process.env.OPENAPI_URL || '';
+  const jugglerOpenApiPath = path.resolve('docs/openapi/juggler.yaml');
   return pipe(
-    fetchOpenApiContent(openApiUrlString),
+    fetchOpenApiContent(openApiUrlString, jugglerOpenApiPath),
     TE.foldW(
       ({ message }) =>
         T.of({
