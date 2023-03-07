@@ -31,14 +31,11 @@ describe('ApiViewer', () => {
     const warningPanel = screen.queryByTestId('warning-panel');
     expect(warningPanel).toBeInTheDocument();
     expect(warningPanel).toHaveTextContent(errorMessage);
-    expect(screen.queryByTestId('openapi-doc')).not.toBeInTheDocument();
   });
 
-  it('should render the OpenAPI spec and the alert', () => {
+  it('should render the OpenAPI spec', () => {
     render(<ApiViewer error={null} spec={minimalOpenApiSpec} />);
-    const warningPanel = screen.queryByTestId('warning-panel');
     const openApiDoc = screen.queryByTestId('openapi-doc');
-    expect(warningPanel).not.toBeInTheDocument();
     expect(openApiDoc).toBeInTheDocument();
   });
 });

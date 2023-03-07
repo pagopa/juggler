@@ -1,4 +1,3 @@
-import path from 'path';
 import * as T from 'fp-ts/Task';
 import * as TE from 'fp-ts/lib/TaskEither';
 import { GetServerSideProps } from 'next';
@@ -6,38 +5,45 @@ import { Alert } from '@mui/material';
 import SwaggerUI from 'swagger-ui-react';
 import 'swagger-ui-react/swagger-ui.css';
 import { pipe } from 'fp-ts/lib/function';
-import { fetchOpenApiContent } from '../adapters/openapi/getOpenApiSpec';
+import SwaggerParser from '@apidevtools/swagger-parser';
+import { parseConfig } from '../config';
 
+// We could create two different types and let the ApiViewerProps type be a union of them.
 type ApiViewerProps = {
   spec: string | null;
   error: string | null;
 };
 
-export const getServerSideProps: GetServerSideProps<ApiViewerProps> = () => {
-  const openApiUrlString = process.env.OPENAPI_URL || '';
-  const jugglerOpenApiPath = path.resolve('docs/openapi/juggler.yaml');
-  return pipe(
-    fetchOpenApiContent(openApiUrlString, jugglerOpenApiPath),
+export const getServerSideProps: GetServerSideProps<ApiViewerProps> = () =>
+  pipe(
+    parseConfig(process.env),
+    TE.fromEither,
+    TE.chain(({ openapi: { URL: url } }) =>
+      pipe(
+        TE.tryCatch(
+          () => SwaggerParser.bundle(url),
+          (_) => `It wasn't possible to parse the OpenAPI specified at ${url}`
+        ),
+        TE.map(JSON.stringify)
+      )
+    ),
     TE.foldW(
-      ({ message }) =>
+      (error) =>
         T.of({
           props: {
             spec: null,
-            error: message,
+            error,
           },
         }),
-      ({ content, fromOrigin }) =>
+      (spec) =>
         T.of({
           props: {
-            spec: content,
-            error: fromOrigin
-              ? null
-              : 'There was an error with the OpenAPI specification provided. Please check the URL and try again. Here is the OpenAPI specification of the Juggler.',
+            spec,
+            error: null,
           },
         })
     )
   )();
-};
 
 const ApiViewer = ({ spec, error }: ApiViewerProps) => (
   <div>
