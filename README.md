@@ -25,3 +25,5 @@ npm run start
 ```
 
 You can access the dashboard by visiting the path `/ui/dashboard`.
+
+If you want to take a look at an HTML version of the OpenAPI, you can visit the path `/ui/openapi`.
