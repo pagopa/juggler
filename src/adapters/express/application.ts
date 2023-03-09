@@ -10,6 +10,7 @@ import { NextServer } from 'next/dist/server/next';
 import { makeMockHandler } from './mockHandler';
 import { AppEnv } from './AppEnv';
 import { makeGetRequestResponseRouter } from './getRequestResponseRouter';
+import { makeGetOpenApiRouter } from './getOpenApiRouter';
 
 /**
  * Create an instance of {@link express.Application} given all the required capabilities.
@@ -25,6 +26,7 @@ const makeApplication = (
   // TODO remove duplication of this "ui" and the value of basePath on
   // next.config.js they should be the same value
   application.all('/ui/*', (req, res) => nextHandler(req, res));
+  application.use(makeGetOpenApiRouter(env));
   application.use(makeGetRequestResponseRouter(env));
   application.use(makeMockHandler(env));
 
