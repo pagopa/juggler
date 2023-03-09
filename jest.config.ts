@@ -1,10 +1,4 @@
 import type { JestConfigWithTsJest } from 'ts-jest';
-import nextJest from 'next/jest';
-
-const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
-  dir: './',
-});
 
 const jestConfig: JestConfigWithTsJest = {
   roots: ['<rootDir>/src'],
@@ -24,8 +18,6 @@ const jestConfig: JestConfigWithTsJest = {
       lines: 70,
     },
   },
-  testEnvironment: 'jest-environment-jsdom',
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 };
 
-export default createJestConfig(jestConfig);
+export default jestConfig;
