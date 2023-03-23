@@ -5,9 +5,17 @@ FROM node:${NODE_VERSION}-alpine as build
 WORKDIR /app
 
 COPY --chown=node:node . /app
-RUN npm ci && npm run generate:api && npm run build
+RUN npm ci && npm run generate:api && npm run compile
 
-# Step 2 - Prepare production image
+# Step 2 - Build Next app
+FROM node:${NODE_VERSION}-alpine as next-build
+
+WORKDIR /next
+
+COPY --chown=node:node . /next
+RUN npm ci && npm run build
+
+# Step 3 - Prepare production image
 FROM node:${NODE_VERSION}-alpine
 
 RUN npm install -g pm2@5.2.0
@@ -17,7 +25,8 @@ RUN chown -Rh node:node /app
 
 USER node
 WORKDIR /app
-COPY --chown=node:node --from=build /app/dist /app/.next /app/package.json /app/package-lock.json /app/
+COPY --chown=node:node --from=build /app/dist /app/package.json /app/package-lock.json /app/
+COPY --chown=node:node --from=next-build /next/.next /app/.next/
 
 ENV NODE_ENV=production
 ENV LOG_LEVEL=info
