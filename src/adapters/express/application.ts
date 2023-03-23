@@ -40,7 +40,11 @@ export const startApplication = (
   env: AppEnv
 ): TE.TaskEither<Error, http.Server> => {
   const { hostname, port } = env.server;
-  const nextServer = next({ dev: true, hostname, port });
+  const nextServer = next({
+    dev: env.nodeEnv !== 'production',
+    hostname,
+    port,
+  });
 
   return TE.tryCatch(
     () =>
