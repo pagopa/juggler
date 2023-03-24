@@ -30,7 +30,6 @@
     "dev": "NODE_OPTIONS='-r dotenv/config dotenv_config_path=.env.default' PORT=8080 next dev",
     "start": "npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=.env.default",
     "build": "npm run compile && next build",
-    "start:prod": "NODE_ENV=production node -r dotenv/config dist/main.js dotenv_config_path=.env.default",
     "lint": "eslint src && next lint",
     "lint:fix": "eslint --fix src",
     "prettify": "prettier --write \"./**/*.ts\"",
