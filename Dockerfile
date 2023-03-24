@@ -6,6 +6,8 @@ WORKDIR /app
 
 COPY --chown=node:node . /app
 RUN npm ci && npm run generate:api && npm run build
+# Remove the cache folder from .next/
+RUN rm -rf .next/cache
 
 # Step 2 - Prepare production image
 FROM node:${NODE_VERSION}-alpine
@@ -17,7 +19,8 @@ RUN chown -Rh node:node /app
 
 USER node
 WORKDIR /app
-COPY --chown=node:node --from=build /app/dist /app/.next /app/package.json /app/package-lock.json /app/
+COPY --chown=node:node --from=build /app/dist /app/package.json /app/package-lock.json /app/
+COPY --chown=node:node --from=build /app/.next /app/.next/
 
 ENV NODE_ENV=production
 ENV LOG_LEVEL=info
