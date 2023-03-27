@@ -26,10 +26,10 @@ RUN chown -Rh node:node /app
 
 USER node
 WORKDIR /app
-COPY --chown=node:node --from=build ./node_modules /app/node_modules
-COPY --chown=node:node --from=build ./dist /app/dist
-COPY --chown=node:node --from=build ./.next /app/.next
-COPY --chown=node:node --from=build ./next.config.js /app/next.config.js
+COPY --chown=node:node --from=build /app/node_modules /app/node_modules
+COPY --chown=node:node --from=build /app/dist /app/dist
+COPY --chown=node:node --from=build /app/.next /app/.next
+COPY --chown=node:node --from=build /app/next.config.js /app/next.config.js
 
 ENV NODE_ENV=production
 ENV LOG_LEVEL=info
