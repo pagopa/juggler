@@ -73,4 +73,4 @@ the OpenAPI specification you need and then you can run the following command:
 curl -X 'GET' \
   'http://0.0.0.0:3000/delivery-progresses/streams' \
   -H 'accept: application/json'
-``
+```
