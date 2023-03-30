@@ -29,7 +29,7 @@
     "compile": "tsc",
     "dev": "NODE_OPTIONS='-r dotenv/config dotenv_config_path=.env.default' PORT=8080 next dev",
     "start": "npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=.env.default",
-    "build": "next build",
+    "build": "npm run compile && next build",
     "lint": "eslint src && next lint",
     "lint:fix": "eslint --fix src",
     "prettify": "prettier --write \"./**/*.ts\"",
@@ -38,7 +38,8 @@
     "start:iosign": "OPENAPI_SPEC=$npm_package_config_openapi_iosign_issuerURL npm run start",
     "test": "DOTENV_CONFIG_PATH=./.env.default jest --setupFiles dotenv/config -i",
     "test:coverage": "npm run test -- --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "next telemetry disable"
   },
   "repository": {
     "type": "git",
@@ -75,6 +76,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.11",
+    "@pagopa/ts-commons": "^10.14.2",
     "@stoplight/prism-cli": "^4.10.5",
     "@stoplight/prism-http": "^4.10.5",
     "@textea/json-viewer": "^1.24.5",

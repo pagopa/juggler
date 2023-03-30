@@ -1,0 +1,13 @@
+.github/
+dist/
+docs/architecture/
+.adr-dir
+.dockerignore
+.env.default
+.eslintrc.json
+.git/
+.gitignore
+.prettierrc
+jest.config.ts
+README.md
+node_modules/
