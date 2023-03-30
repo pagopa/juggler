@@ -1,6 +1,6 @@
-ARG NODE_VERSION=18.13.0
+ARG BASE_IMAGE=node:18.13.0-alpine
 # Step 1 - Compile code
-FROM node:${NODE_VERSION}-alpine as build
+FROM ${BASE_IMAGE} as build
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ RUN rm -rf node_modules
 RUN npm install --production --ignore-scripts && npm cache clean --force
 
 # Step 2 - Prepare production image
-FROM node:${NODE_VERSION}-alpine
+FROM ${BASE_IMAGE}
 
 RUN mkdir -p /app
 RUN chown -Rh node:node /app
