@@ -10,3 +10,4 @@ docs/architecture/
 .prettierrc
 jest.config.ts
 README.md
+node_modules/
