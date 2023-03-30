@@ -72,5 +72,35 @@ the OpenAPI specification you need and then you can run the following command:
 ``` sh
 curl -X 'GET' \
   'http://0.0.0.0:3000/delivery-progresses/streams' \
-  -H 'accept: application/json'
+  -H 'Accept: application/json' \
+```
+### IO Sign - Firma con IO
+[Here](https://raw.githubusercontent.com/pagopa/io-sign/main/apps/io-func-sign-issuer/openapi.yaml) you can find the OpenAPI specification.
+
+Then, you can use this command to create a new dossier using the `POST /dossiers` endpoint:
+
+``` sh
+curl -X 'POST' \
+  'http://0.0.0.0:3000/dossiers' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "title": "string",
+  "documents_metadata": [
+    {
+      "title": "string",
+      "signature_fields": [
+        {
+          "attrs": {
+            "unique_name": "string"
+          },
+          "clause": {
+            "title": "string",
+            "type": "REQUIRED"
+          }
+        }
+      ]
+    }
+  ]
+}'
 ```
