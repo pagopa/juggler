@@ -78,7 +78,7 @@ docker run -p 3000:3000 -e OPENAPI_URL=https://github.com/pagopa/pn-delivery-pus
 # Get the streams
 curl -X 'GET' \
   'http://0.0.0.0:3000/delivery-progresses/streams' \
-  -H 'Accept: application/json' \
+  -H 'Accept: application/json'
 ```
 
 ### IO Sign - Firma con IO
