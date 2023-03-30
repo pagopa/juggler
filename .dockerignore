@@ -1,6 +1,7 @@
 .github/
 dist/
 docs/architecture/
+docs/examples/
 .adr-dir
 .dockerignore
 .env.default

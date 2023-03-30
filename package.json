@@ -13,7 +13,7 @@
         "streamURL": "https://github.com/pagopa/pn-delivery-push/raw/a886f32/docs/openapi/api-external-b2b-webhook-v1.yaml"
       },
       "io": {
-        "apiPublicURL": "https://github.com/pagopa/io-backend/raw/d7dc36b/openapi/generated/api_public.yaml"
+        "apiPublicURL": "https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml"
       },
       "iosign": {
         "issuerURL": "https://github.com/pagopa/io-sign/raw/6a3d7b6/apps/io-func-sign-issuer/openapi.yaml"

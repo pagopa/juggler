@@ -58,3 +58,6 @@ podman run -p 8080:3000 -e OPENAPI_URL=https://<path-to-openapi> your-image-name
 ```
 
 This command will start a new container based on the image you just built and map port 3000 in the container to port 8080 on your local machine. You should now be able to access the project by visiting http://localhost:8080 in your web browser.
+
+## Examples
+You can find some examples [here](./docs/examples/README.md).
