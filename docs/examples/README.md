@@ -37,9 +37,40 @@ To search a profile, you can use the following command to invoke the `POST /prof
 ``` sh
 curl -X 'POST' \
   'http://0.0.0.0:3000/profiles' \
-  -H 'accept: application/json' \
+  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
   "fiscal_code": "<FISCAL_CODE>"
 }'
 ```
+
+### Piattaforma Notifiche
+Piattaforma Notifiche provides two different OpenAPIs: one to use in order to send a digital notification and one to use 
+in order to see the status (and events related) of the notifications sent.
+
+[Here](https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml) you can find 
+the OpenAPI specification you need to send digital notifications.
+
+You can then run the following command:
+``` sh
+curl --location 'http://0.0.0.0:3000/delivery/attachments/preload' \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'x-api-key: key-value' \
+  -d '[
+    {
+      "preloadIdx": "documento",
+      "contentType": "application/pdf",
+      "sha256": "Fq9Vn4gAxHvvcaS0P6DGZOJ0/HjoViGOYwV7Hk7BRlM="
+    }
+  ]'
+```
+
+If you need to mock the API to get the status of the notifications, [this](https://github.com/pagopa/pn-delivery-push/raw/a886f32/docs/openapi/api-external-b2b-webhook-v1.yaml) 
+the OpenAPI specification you need and then you can run the following command:
+
+``` sh
+curl -X 'GET' \
+  'http://0.0.0.0:3000/delivery-progresses/streams' \
+  -H 'accept: application/json'
+``
