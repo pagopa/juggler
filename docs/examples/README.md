@@ -20,11 +20,11 @@ The command above will start a container and map port 3000 in the container to p
 
 ## Interact with the Juggler
 After the container has started, you can invoke the Juggler as it was a real service. For example, you can use the following
-command to invoke the `POST /profiles` endpoint to search for a user with a given tax code:
+command to invoke the `POST /profiles` endpoint to search for a user with a given `fiscal_code`:
 
 ``` sh
 curl -X 'POST' \
-  'http://0.0.0.0:3000/api/v1/profiles' \
+  'http://0.0.0.0:3000/profiles' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
