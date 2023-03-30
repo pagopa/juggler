@@ -17,12 +17,6 @@ or using Podman:
 podman run -p 3000:3000 -e OPENAPI_URL=<URL_HERE> your-image-name 
 ```
 
-**E.g.**: to run the Juggler in order to mock the IO APIs, run the following command:
-
-``` sh
-docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml your-image-name
-```
-
 Note that the `OPENAPI_URL` environment variable is used to specify the URL of the OpenAPI file to use.
 The command above will start a container and map port 3000 in the container to port 3000 on your local machine.
 
@@ -31,6 +25,10 @@ If you need to see the recorded requests and responses, just go to `/ui/dashboar
 
 ### IO
 [Here](https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml) you can find the OpenAPI specification.  
+Run the Juggler with the following command:
+``` sh
+docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml your-image-name
+```
 
 To search a profile, you can use the following command to invoke the `POST /profiles` endpoint to search for a user with a given `fiscal_code`:
 
@@ -49,7 +47,11 @@ Piattaforma Notifiche provides two different OpenAPIs: one to use in order to se
 in order to see the status (and events related) of the notifications sent.
 
 [Here](https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml) you can find 
-the OpenAPI specification you need to send digital notifications.
+the OpenAPI specification you need to send digital notifications.  
+Run the Juggler with the following command:
+``` sh
+docker run -p 3000:3000 -e OPENAPI_URL=https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml your-image-name
+```
 
 You can then run the following command:
 ``` sh
@@ -67,16 +69,25 @@ curl --location 'http://0.0.0.0:3000/delivery/attachments/preload' \
 ```
 
 If you need to mock the API to get the status of the notifications, [this](https://github.com/pagopa/pn-delivery-push/raw/a886f32/docs/openapi/api-external-b2b-webhook-v1.yaml) 
-the OpenAPI specification you need and then you can run the following command:
+the OpenAPI specification you need and then you can run the following commands:
 
 ``` sh
+# Start the Juggler container
+docker run -p 3000:3000 -e OPENAPI_URL=https://github.com/pagopa/pn-delivery-push/raw/a886f32/docs/openapi/api-external-b2b-webhook-v1.yaml your-image-name
+
+# Get the streams
 curl -X 'GET' \
   'http://0.0.0.0:3000/delivery-progresses/streams' \
   -H 'Accept: application/json' \
 ```
+
 ### IO Sign - Firma con IO
 [Here](https://raw.githubusercontent.com/pagopa/io-sign/main/apps/io-func-sign-issuer/openapi.yaml) you can find the OpenAPI specification.
 
+Run the Juggler with the following command:
+``` sh
+docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-sign/main/apps/io-func-sign-issuer/openapi.yaml your-image-name
+```
 Then, you can use this command to create a new dossier using the `POST /dossiers` endpoint:
 
 ``` sh
