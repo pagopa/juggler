@@ -8,10 +8,14 @@ Make sure to have built the Docker image. Otherwise, follow the instructions in 
 To run the container, execute the following command:
 
 ``` sh
-docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml io-mock
+docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml your-image-name
 ```
-Note that the `OPENAPI_URL` environment variable is used to specify the URL of the OpenAPI file to use; the `io-mock` value
-is the name of the container.  
+or using Podman:
+
+``` sh
+podman run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml your-image-name 
+```
+Note that the `OPENAPI_URL` environment variable is used to specify the URL of the OpenAPI file to use.
 The command above will start a container and map port 3000 in the container to port 3000 on your local machine.
 
 ## Interact with the Juggler
@@ -27,3 +31,6 @@ curl -X 'POST' \
   "fiscal_code": "<FISCAL_CODE>"
 }'
 ```
+
+You can see the list of all the endpoints available, visiting the OpenAPI specification at http://localhost:3000/ui/openapi.
+You can see the recorded requests and responses at http://localhost:3000/ui/dashboard.
