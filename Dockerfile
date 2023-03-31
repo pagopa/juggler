@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=node:18.13.0-alpine
+ARG BASE_IMAGE=node:18.15.0-alpine
 # Step 1 - Compile code
 FROM ${BASE_IMAGE} as build
 
