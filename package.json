@@ -20,6 +20,9 @@
       },
       "pagoPA": {
         "todoURL": "TODO"
+      },
+      "cStar":  {
+        "idPayURL": "https://raw.githubusercontent.com/pagopa/cstar-infrastructure/ad538ca81f397f4804b2e6ea15d3b03c89260e4f/src/domains/idpay-app/api/idpay_appio_full/openapi.appio.full.yml"
       }
     }
   },
@@ -36,6 +39,7 @@
     "start:pn": "OPENAPI_URL=$npm_package_config_openapi_pn_deliveryURL npm run start",
     "start:io": "OPENAPI_URL=$npm_package_config_openapi_io_apiPublicURL npm run start",
     "start:iosign": "OPENAPI_URL=$npm_package_config_openapi_iosign_issuerURL npm run start",
+    "start:idpay": "OPENAPI_URL=$npm_package_config_openapi_cStar_idPayURL npm run start",
     "test": "DOTENV_CONFIG_PATH=./.env.default jest --setupFiles dotenv/config -i",
     "test:coverage": "npm run test -- --coverage",
     "prepare": "husky install",
