@@ -24,7 +24,8 @@ Once you have started the container, you can see the list of all the endpoints a
 If you need to see the recorded requests and responses, just go to `/ui/dashboard`.
 
 ### IO
-[Here](https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml) you can find the OpenAPI specification.  
+[Get the IO OpenAPI specification](https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml).
+
 Run the Juggler with the following command:
 ``` sh
 docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml your-image-name
@@ -46,8 +47,8 @@ curl -X 'POST' \
 Piattaforma Notifiche provides two different OpenAPIs: one to use in order to send a digital notification and one to use 
 in order to see the status (and events related) of the notifications sent.
 
-[Here](https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml) you can find 
-the OpenAPI specification you need to send digital notifications.  
+[Get the Piattaforma Notifiche OpenAPI specification](https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml).
+
 Run the Juggler with the following command:
 ``` sh
 docker run -p 3000:3000 -e OPENAPI_URL=https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml your-image-name
@@ -82,7 +83,7 @@ curl -X 'GET' \
 ```
 
 ### IO Sign - Firma con IO
-[Here](https://raw.githubusercontent.com/pagopa/io-sign/main/apps/io-func-sign-issuer/openapi.yaml) you can find the OpenAPI specification.
+[Get the IO Sign OpenAPI specification](https://raw.githubusercontent.com/pagopa/io-sign/main/apps/io-func-sign-issuer/openapi.yaml).
 
 Run the Juggler with the following command:
 ``` sh
@@ -117,7 +118,7 @@ curl -X 'POST' \
 ```
 
 ### Centro Stella - IdPay
-[Here](https://raw.githubusercontent.com/pagopa/cstar-infrastructure/ad538ca81f397f4804b2e6ea15d3b03c89260e4f/src/domains/idpay-app/api/idpay_appio_full/openapi.appio.full.yml) you can find the OpenAPI specification.
+[Get the IdPay OpenAPI specification](https://raw.githubusercontent.com/pagopa/cstar-infrastructure/ad538ca81f397f4804b2e6ea15d3b03c89260e4f/src/domains/idpay-app/api/idpay_appio_full/openapi.appio.full.yml).
 
 Run the Juggler with the following command:
 ``` sh
