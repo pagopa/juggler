@@ -115,3 +115,19 @@ curl -X 'POST' \
   ]
 }'
 ```
+
+### Centro Stella - IdPay
+[Here](https://raw.githubusercontent.com/pagopa/cstar-infrastructure/ad538ca81f397f4804b2e6ea15d3b03c89260e4f/src/domains/idpay-app/api/idpay_appio_full/openapi.appio.full.yml) you can find the OpenAPI specification.
+
+Run the Juggler with the following command:
+``` sh
+docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/cstar-infrastructure/ad538ca81f397f4804b2e6ea15d3b03c89260e4f/src/domains/idpay-app/api/idpay_appio_full/openapi.appio.full.yml your-image-name
+```
+Then, you can use this command to get the list of IBANs using the `GET /iban/` endpoint:
+
+``` sh
+curl -X 'GET' \
+  'http://0.0.0.0:3000/iban/' \
+  -H 'accept: application/json' \
+  -H 'Accept-Language: it-IT'
+```
