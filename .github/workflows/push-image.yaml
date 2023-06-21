@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: '**'
 
+env:
+  CONTAINER_REGISTRY: ghcr.io
+
 jobs:
   build-container:
     name: Build container image
