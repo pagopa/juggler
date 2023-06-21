@@ -28,9 +28,7 @@ npm run dev
 
 Open [http://localhost:3000/ui/dashboard](http://localhost:3000/ui/dashboard) with your browser to see the dashboard.
 
-Open [http://localhost:3000/ui/openapi](http://localhost:3000/ui/openapi) with your browser to see the dashboard.
-
-If you want to take a look at an HTML version of the OpenAPI, you can visit the path `/ui/openapi`.
+Open [http://localhost:3000/ui/openapi](http://localhost:3000/ui/openapi) with your browser to see the open-api documentation.
 
 ### Useful commands
 

@@ -18,6 +18,9 @@
       "iosign": {
         "issuerURL": "https://github.com/pagopa/io-sign/raw/6a3d7b6/apps/io-func-sign-issuer/openapi.yaml"
       },
+      "pagoPA": {
+        "debtPositionsURL": "https://github.com/pagopa/pagopa-api/raw/f25f9becb7a784a6fb136a1ac7a0feca1fcbd3d7/api-definitions/db_positions/api.yaml"
+      },
       "cStar": {
         "idPayURL": "https://raw.githubusercontent.com/pagopa/cstar-infrastructure/ad538ca81f397f4804b2e6ea15d3b03c89260e4f/src/domains/idpay-app/api/idpay_appio_full/openapi.appio.full.yml"
       }
@@ -33,10 +36,11 @@
     "build": "npm run compile && next build",
     "lint": "next lint",
     "format": "prettier --write \"./**/*.ts\"",
-    "start:pn": "OPENAPI_URL=$npm_package_config_openapi_pn_deliveryURL npm run start",
-    "start:io": "OPENAPI_URL=$npm_package_config_openapi_io_apiPublicURL npm run start",
-    "start:iosign": "OPENAPI_URL=$npm_package_config_openapi_iosign_issuerURL npm run start",
-    "start:idpay": "OPENAPI_URL=$npm_package_config_openapi_cStar_idPayURL npm run start",
+    "dev:pn": "OPENAPI_URL=$npm_package_config_openapi_pn_deliveryURL npm run dev",
+    "dev:io": "OPENAPI_URL=$npm_package_config_openapi_io_apiPublicURL npm run dev",
+    "dev:iosign": "OPENAPI_URL=$npm_package_config_openapi_iosign_issuerURL npm run dev",
+    "dev:pagoPA": "OPENAPI_URL=$npm_package_config_openapi_pagoPA_debtPositionsURL npm run dev",
+    "dev:idpay": "OPENAPI_URL=$npm_package_config_openapi_cStar_idPayURL npm run dev",
     "test": "DOTENV_CONFIG_PATH=./.env.default jest --setupFiles dotenv/config -i"
   },
   "devDependencies": {
