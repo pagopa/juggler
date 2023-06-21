@@ -3,7 +3,10 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["@pagopa/eslint-config/recommended"],
+  "extends": [
+    "@pagopa/eslint-config/recommended",
+    "next/core-web-vitals"
+  ],
   "overrides": [
     {
       "files": ["**/*.spec.ts"],

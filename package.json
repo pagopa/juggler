@@ -1,6 +1,6 @@
 {
   "name": "@pagopa-dev/juggler",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Are you looking for a quick way to mock some endpoints given an open API? The Juggler can do what you are looking for.",
   "main": "dist/main.js",
   "config": {
@@ -19,43 +19,30 @@
         "issuerURL": "https://github.com/pagopa/io-sign/raw/6a3d7b6/apps/io-func-sign-issuer/openapi.yaml"
       },
       "pagoPA": {
-        "todoURL": "TODO"
+        "debtPositionsURL": "https://github.com/pagopa/pagopa-api/raw/f25f9becb7a784a6fb136a1ac7a0feca1fcbd3d7/api-definitions/db_positions/api.yaml"
       },
-      "cStar":  {
+      "cStar": {
         "idPayURL": "https://raw.githubusercontent.com/pagopa/cstar-infrastructure/ad538ca81f397f4804b2e6ea15d3b03c89260e4f/src/domains/idpay-app/api/idpay_appio_full/openapi.appio.full.yml"
       }
     }
   },
   "scripts": {
+    "prepare": "husky install",
+    "postinstall": "next telemetry disable",
     "generate:api": "shx rm -rf $npm_package_config_codegen_targetDir && shx mkdir -p $npm_package_config_codegen_targetDir && gen-api-models --api-spec ./docs/openapi/juggler.yaml --no-strict --out-dir $npm_package_config_codegen_targetDir",
     "clean": "tsc --build --clean",
     "compile": "tsc",
-    "dev": "NODE_OPTIONS='-r dotenv/config dotenv_config_path=.env.default' PORT=8080 next dev",
-    "start": "npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=.env.default",
+    "dev": "npm run generate:api && npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=.env.default",
     "build": "npm run compile && next build",
-    "lint": "eslint src && next lint",
-    "lint:fix": "eslint --fix src",
-    "prettify": "prettier --write \"./**/*.ts\"",
-    "start:pn": "OPENAPI_URL=$npm_package_config_openapi_pn_deliveryURL npm run start",
-    "start:io": "OPENAPI_URL=$npm_package_config_openapi_io_apiPublicURL npm run start",
-    "start:iosign": "OPENAPI_URL=$npm_package_config_openapi_iosign_issuerURL npm run start",
-    "start:idpay": "OPENAPI_URL=$npm_package_config_openapi_cStar_idPayURL npm run start",
-    "test": "DOTENV_CONFIG_PATH=./.env.default jest --setupFiles dotenv/config -i",
-    "test:coverage": "npm run test -- --coverage",
-    "prepare": "husky install",
-    "postinstall": "next telemetry disable"
+    "lint": "next lint",
+    "format": "prettier --write \"./**/*.ts\"",
+    "dev:pn": "OPENAPI_URL=$npm_package_config_openapi_pn_deliveryURL npm run dev",
+    "dev:io": "OPENAPI_URL=$npm_package_config_openapi_io_apiPublicURL npm run dev",
+    "dev:iosign": "OPENAPI_URL=$npm_package_config_openapi_iosign_issuerURL npm run dev",
+    "dev:pagoPA": "OPENAPI_URL=$npm_package_config_openapi_pagoPA_debtPositionsURL npm run dev",
+    "dev:idpay": "OPENAPI_URL=$npm_package_config_openapi_cStar_idPayURL npm run dev",
+    "test": "DOTENV_CONFIG_PATH=./.env.default jest --setupFiles dotenv/config -i"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pagopa/juggler.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/pagopa/juggler/issues"
-  },
-  "homepage": "https://github.com/pagopa/juggler#readme",
   "devDependencies": {
     "@pagopa/eslint-config": "^3.0.0",
     "@pagopa/openapi-codegen-ts": "^12.1.2",
@@ -67,6 +54,7 @@
     "concurrently": "^7.6.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.33.0",
+    "eslint-config-next": "^13.4.6",
     "husky": "^8.0.0",
     "jest": "^29.4.1",
     "jest-mock-extended": "^3.0.1",
