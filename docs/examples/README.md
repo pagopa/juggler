@@ -28,7 +28,7 @@ If you need to see the recorded requests and responses, just go to `/ui/dashboar
 
 Run the Juggler with the following command:
 ``` sh
-docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml your-image-name
+docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-functions-services/50a116f/openapi/index.yaml ghcr.io/pagopa/juggler:latest
 ```
 
 To search a profile, you can use the following command to invoke the `POST /profiles` endpoint to search for a user with a given `fiscal_code`:
@@ -51,7 +51,7 @@ in order to see the status (and events related) of the notifications sent.
 
 Run the Juggler with the following command:
 ``` sh
-docker run -p 3000:3000 -e OPENAPI_URL=https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml your-image-name
+docker run -p 3000:3000 -e OPENAPI_URL=https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml ghcr.io/pagopa/juggler:latest
 ```
 
 You can then run the following command:
@@ -74,7 +74,7 @@ the OpenAPI specification you need and then you can run the following commands:
 
 ``` sh
 # Start the Juggler container
-docker run -p 3000:3000 -e OPENAPI_URL=https://github.com/pagopa/pn-delivery-push/raw/a886f32/docs/openapi/api-external-b2b-webhook-v1.yaml your-image-name
+docker run -p 3000:3000 -e OPENAPI_URL=https://github.com/pagopa/pn-delivery-push/raw/a886f32/docs/openapi/api-external-b2b-webhook-v1.yaml ghcr.io/pagopa/juggler:latest
 
 # Get the streams
 curl -X 'GET' \
@@ -87,7 +87,7 @@ curl -X 'GET' \
 
 Run the Juggler with the following command:
 ``` sh
-docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-sign/main/apps/io-func-sign-issuer/openapi.yaml your-image-name
+docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/io-sign/main/apps/io-func-sign-issuer/openapi.yaml ghcr.io/pagopa/juggler:latest
 ```
 Then, you can use this command to create a new dossier using the `POST /dossiers` endpoint:
 
@@ -122,7 +122,7 @@ curl -X 'POST' \
 
 Run the Juggler with the following command:
 ``` sh
-docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/cstar-infrastructure/ad538ca81f397f4804b2e6ea15d3b03c89260e4f/src/domains/idpay-app/api/idpay_appio_full/openapi.appio.full.yml your-image-name
+docker run -p 3000:3000 -e OPENAPI_URL=https://raw.githubusercontent.com/pagopa/cstar-infrastructure/ad538ca81f397f4804b2e6ea15d3b03c89260e4f/src/domains/idpay-app/api/idpay_appio_full/openapi.appio.full.yml ghcr.io/pagopa/juggler:latest
 ```
 Then, you can use this command to get the list of IBANs using the `GET /iban/` endpoint:
 

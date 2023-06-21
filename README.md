@@ -71,5 +71,11 @@ Once the image has been built, you can run it using the run command:
 docker run -p 3000:3000 -e OPENAPI_URL=https://<path-to-openapi> your-image-name
 ```
 
+## Run as docker image taken from registry
+
+``` sh
+docker run -p 3000:3000 -e OPENAPI_URL=path-to-your-openapi ghcr.io/pagopa/juggler:latest
+```
+
 ## Examples
 You can find some examples on [./docs/examples/README.md](./docs/examples/README.md) file.
