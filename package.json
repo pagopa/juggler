@@ -41,6 +41,7 @@
     "dev:iosign": "OPENAPI_URL=$npm_package_config_openapi_iosign_issuerURL npm run dev",
     "dev:pagoPA": "OPENAPI_URL=$npm_package_config_openapi_pagoPA_debtPositionsURL npm run dev",
     "dev:idpay": "OPENAPI_URL=$npm_package_config_openapi_cStar_idPayURL npm run dev",
+    "dependency:check": "dependency-check package.json --no-dev --missing ./dist/**/*.js",
     "test": "DOTENV_CONFIG_PATH=./.env.default jest --setupFiles dotenv/config -i"
   },
   "devDependencies": {
@@ -52,6 +53,7 @@
     "@types/react": "18.0.28",
     "@types/swagger-ui-react": "^4.11.0",
     "concurrently": "^7.6.0",
+    "dependency-check": "^4.1.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.33.0",
     "eslint-config-next": "^13.4.6",

@@ -31,6 +31,9 @@ jobs:
       - name: Compile
         run: npm run compile
 
+      - name: Check all dependencies are listed
+        run: npm run dependency:check
+
       - name: Lint code
         run: npm run lint
 
