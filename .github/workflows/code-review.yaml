@@ -2,8 +2,6 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  push:
-    tags: '*'
   pull_request:
     branches: '**'
 
@@ -14,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version-file: '.node-version'
           cache: 'npm'
@@ -39,3 +37,16 @@ jobs:
 
       - name: Execute tests
         run: npm test
+
+  build-container:
+    name: Build container image
+    runs-on: ubuntu-latest
+    env:
+      image_tag: ${{ github.repository }}:${{ github.sha }}
+
+    steps:
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+
+      - uses: ./.github/actions/build-image
+        with:
+          image_tag: ${{ env.image_tag }}
