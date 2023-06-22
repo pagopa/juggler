@@ -2,6 +2,7 @@
  * This file is a capabilities mapper, maps a capability to a given key.
  */
 
+import { ListCustomResponseDefinition } from './CustomResponseDefinition';
 import { Mock } from './Mock';
 import {
   RequestResponseReader,
@@ -18,4 +19,5 @@ export type Capabilities = {
   mock: Mock;
   requestResponseReader: RequestResponseReader;
   requestResponseWriter: RequestResponseWriter;
+  listCustomResponseDefinition: ListCustomResponseDefinition;
 };

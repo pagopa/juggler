@@ -20,5 +20,6 @@ export const makeAppEnv = (config: Config): TE.TaskEither<Error, AppEnv> =>
       mock,
       requestResponseReader: requestResponseStore,
       requestResponseWriter: requestResponseStore,
+      listCustomResponseDefinition: () => [],
     }))
   );
