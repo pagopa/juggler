@@ -6,14 +6,14 @@ import { pipe } from 'fp-ts/lib/function';
 import * as O from 'fp-ts/lib/Option';
 import * as RTE from 'fp-ts/lib/ReaderTaskEither';
 import * as RR from 'fp-ts/lib/ReadonlyRecord';
-import { MockRequest } from '../../domain/Mock';
+import { HttpRequest } from '../../domain/RequestResponse';
 import { processRequest } from '../../useCases/processRequest';
 import { AppEnv } from './AppEnv';
 import { problemDetail500 } from './errors';
 
 export const makeMethod = (
   method: express.Request['method']
-): MockRequest['method'] => {
+): HttpRequest['method'] => {
   switch (method) {
     case 'DELETE':
       return 'delete';
@@ -36,7 +36,7 @@ export const makeMethod = (
 
 const makeHeaders = (
   headers: express.Request['headers']
-): MockRequest['headers'] =>
+): HttpRequest['headers'] =>
   pipe(
     headers,
     RR.filterMap(O.fromNullable),
@@ -49,7 +49,7 @@ const makeHeaders = (
  */
 export const makeMockRequestFromExpressRequest = (
   request: express.Request
-): MockRequest => ({
+): HttpRequest => ({
   url: {
     path: request.path,
   },
@@ -68,8 +68,8 @@ export const makeMockHandler =
       processRequest(makeMockRequestFromExpressRequest(req)),
       RTE.fold(
         (_) => RTE.of(res.status(500).json(problemDetail500)),
-        ({ status, headers, data }) =>
-          RTE.of(res.status(status).header(headers).send(data))
+        ({ statusCode, headers, body }) =>
+          RTE.of(res.status(statusCode).header(headers).send(body))
       ),
       RTE.toUnion
     )(env)();

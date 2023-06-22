@@ -1,5 +1,9 @@
 import * as TE from 'fp-ts/TaskEither';
-import { MockRequest, MockOutput } from './Mock';
+import { IHttpRequest, IHttpResponse } from '@stoplight/prism-http';
+
+// For now use the types of prism
+export type HttpRequest = IHttpRequest;
+export type HttpResponse = IHttpResponse;
 
 /**
  * Represents the request-response pair provided by the Mock.
@@ -7,8 +11,8 @@ import { MockRequest, MockOutput } from './Mock';
 export type RequestResponse = {
   // I didn't found a better term from the RFC 2616.
   // https://www.rfc-editor.org/rfc/rfc2616.html#section-4
-  request: MockRequest;
-  response: MockOutput;
+  request: HttpRequest;
+  response: HttpResponse;
 };
 
 /**
