@@ -19,7 +19,7 @@ runs:
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@41f05d9ecffa2ed3f1580af306000f734b733e54
       with:
-        image-ref: ${{ env.image_tag }}
+        image-ref: ${{ inputs.image_tag }}
         format: 'sarif'
         output: 'trivy-results.sarif'
         severity: 'CRITICAL,HIGH'
