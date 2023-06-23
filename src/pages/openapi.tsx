@@ -1,6 +1,13 @@
-import SwaggerUI from 'swagger-ui-react';
-import 'swagger-ui-react/swagger-ui.css';
+import { API } from '@stoplight/elements';
+import '@stoplight/elements/styles.min.css';
 
-const ApiViewer = () => <SwaggerUI url="/api/openapi" />;
+const ApiViewer = () => (
+  <API
+    apiDescriptionUrl="/api/openapi"
+    router={typeof window === 'undefined' ? 'memory' : 'history'}
+    hideInternal={true}
+    hideExport={true}
+  />
+);
 
 export default ApiViewer;
