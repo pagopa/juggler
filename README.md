@@ -86,3 +86,5 @@ To generate the changelog, we are using [changesets](https://github.com/changese
 When you want to add some information you want to show into the changelog, you can run `npx changeset` or `npm run changeset`
 and follow the wizard: changeset will ask you what kind of changes you made (major, minor, patch) and also a summary; 
 the text you enter in the summary is what will be visible into the CHANGELOG file.
+
+The repository has enabled the changeset GitHub app, which helps to better handle changelogs. 
