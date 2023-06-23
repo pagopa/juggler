@@ -1,6 +1,6 @@
 {
   "name": "@pagopa-dev/juggler",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Are you looking for a quick way to mock some endpoints given an open API? The Juggler can do what you are looking for.",
   "main": "dist/main.js",
   "config": {
