@@ -85,6 +85,10 @@ You can find some examples on [./docs/examples/README.md](./docs/examples/README
 To generate the changelog, we are using [changesets](https://github.com/changesets/changesets).  
 When you want to add some information you want to show into the changelog, you can run `npx changeset` or `npm run changeset`
 and follow the wizard: changeset will ask you what kind of changes you made (major, minor, patch) and also a summary; 
-the text you enter in the summary is what will be visible into the CHANGELOG file.
+the text you enter the summary is what will be visible into the CHANGELOG file.
 
-The repository has enabled the changeset GitHub app, which helps to better handle changelogs. 
+The `.github/workflows/changelog.yaml` workflow is an action that uses the [changeset's action](https://github.com/changesets/action) 
+we use to convert the changes tracked with `npm run changeset` into a `CHANGELOG.md` file.
+It will, then, create a PR with the proposed changes (it will bump the version, update the `CHANGELOG.md` file, ...).  
+If many changes happen when that PR is open, changeset's bot automatically updates it according to the changes (it looks to 
+the `.changeset` folder).
