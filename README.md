@@ -79,3 +79,10 @@ docker run -p 3000:3000 -e OPENAPI_URL=path-to-your-openapi ghcr.io/pagopa/juggl
 
 ## Examples
 You can find some examples on [./docs/examples/README.md](./docs/examples/README.md) file.
+
+## Changelog
+
+To generate the changelog, we are using [changesets](https://github.com/changesets/changesets).  
+When you want to add some information you want to show into the changelog, you can run `npx changeset` or `npm run changeset`
+and follow the wizard: changeset will ask you what kind of changes you made (major, minor, patch) and also a summary; 
+the text you enter in the summary is what will be visible into the CHANGELOG file.

@@ -43,7 +43,8 @@
     "dev:idpay": "OPENAPI_URL=$npm_package_config_openapi_cStar_idPayURL npm run dev",
     "dependency:check": "dependency-check package.json --no-dev --missing ./dist/**/*.js",
     "test": "DOTENV_CONFIG_PATH=./.env.default jest --setupFiles dotenv/config -i",
-    "version": "changeset version && npm install"
+    "version": "changeset version && npm install",
+    "changeset": "changeset"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
