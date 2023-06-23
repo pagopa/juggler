@@ -35,7 +35,7 @@
     "dev": "npm run generate:api && npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=.env.default",
     "build": "npm run compile && next build",
     "lint": "next lint",
-    "format": "prettier --write \"./**/*.ts\"",
+    "format": "prettier --write \"./**/*.{ts,tsx}\"",
     "dev:pn": "OPENAPI_URL=$npm_package_config_openapi_pn_deliveryURL npm run dev",
     "dev:io": "OPENAPI_URL=$npm_package_config_openapi_io_apiPublicURL npm run dev",
     "dev:iosign": "OPENAPI_URL=$npm_package_config_openapi_iosign_issuerURL npm run dev",
