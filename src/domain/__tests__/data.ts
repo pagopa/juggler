@@ -34,6 +34,7 @@ export const makeFakeCapabilities = (defaultData: typeof data = data) => {
     mock: mock<Capabilities['mock']>(),
     requestResponseReader: mock<Capabilities['requestResponseReader']>(),
     requestResponseWriter: mock<Capabilities['requestResponseWriter']>(),
+    openApiParser: mock<Capabilities['openApiParser']>(),
   };
   // default behavior
   mocked.mock.generateResponse.mockReturnValue(

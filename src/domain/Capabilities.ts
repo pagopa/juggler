@@ -7,6 +7,7 @@ import {
   RequestResponseReader,
   RequestResponseWriter,
 } from './RequestResponse';
+import { OpenAPIParser } from './OpenAPISpec';
 
 /**
  * Maps the capabilities to a given property name. Pick the capability using the
@@ -18,4 +19,5 @@ export type Capabilities = {
   mock: Mock;
   requestResponseReader: RequestResponseReader;
   requestResponseWriter: RequestResponseWriter;
+  openApiParser: OpenAPIParser;
 };

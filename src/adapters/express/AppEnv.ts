@@ -4,6 +4,7 @@ import { Config } from '../../config';
 import { Capabilities } from '../../domain/Capabilities';
 import { makeRequestResponseStore } from '../array/makeRequestResponseStore';
 import { makeMock } from '../prism/makeMock';
+import { makeOpenAPIParser } from '../swagger-parser/makeOpenAPIParser';
 
 export type AppEnv = Capabilities & Config;
 
@@ -15,10 +16,12 @@ export const makeAppEnv = (config: Config): TE.TaskEither<Error, AppEnv> =>
     TE.Do,
     TE.apS('mock', makeMock(config.openapi.URL)),
     TE.apS('requestResponseStore', TE.of(makeRequestResponseStore([]))),
-    TE.map(({ mock, requestResponseStore }) => ({
+    TE.apS('openAPIParser', TE.of(makeOpenAPIParser())),
+    TE.map(({ mock, requestResponseStore, openAPIParser }) => ({
       ...config,
       mock,
       requestResponseReader: requestResponseStore,
       requestResponseWriter: requestResponseStore,
+      openApiParser: openAPIParser,
     }))
   );
