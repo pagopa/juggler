@@ -1,6 +1,6 @@
 import express from 'express';
 import { pipe } from 'fp-ts/lib/function';
-import * as TE from 'fp-ts/TaskEither';
+import * as RTE from 'fp-ts/ReaderTaskEither';
 import { getOpenApiSpec } from '../../useCases/getOpenApiSpec';
 import { AppEnv } from './AppEnv';
 import { problemDetail500 } from './errors';
@@ -12,12 +12,12 @@ export const makeGetOpenApiRouter = (env: AppEnv): express.Router => {
   router.get('/api/openapi', (_req, res) =>
     pipe(
       getOpenApiSpec(env.server)(env.openapi.URL),
-      TE.bimap(
-        () => res.status(500).json(problemDetail500),
-        (openapi) => res.status(200).json(openapi)
+      RTE.fold(
+        (_) => RTE.of(res.status(500).json(problemDetail500)),
+        (spec) => RTE.of(res.status(200).json(spec))
       ),
-      TE.toUnion
-    )()
+      RTE.toUnion
+    )(env)()
   );
 
   return router;
