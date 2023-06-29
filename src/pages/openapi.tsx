@@ -8,7 +8,6 @@ const ApiViewer = () => (
     router={typeof window === 'undefined' ? 'memory' : 'history'}
     hideInternal={true}
     hideExport={true}
-    hideTryIt={true} // We are going to enable in later
   />
 );
 
