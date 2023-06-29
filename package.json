@@ -44,12 +44,13 @@
     "dependency:check": "dependency-check package.json --no-dev --missing ./dist/**/*.js",
     "test": "DOTENV_CONFIG_PATH=./.env.default jest --setupFiles dotenv/config -i",
     "version": "changeset version && npm install",
-    "changeset": "changeset"
+    "changeset": "changeset",
+    "run:v2": "OPENAPI_URL=https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v2.0/yaml/petstore.yaml npm run dev",
+    "run:v3": "OPENAPI_URL=https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml npm run dev"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
     "@pagopa/eslint-config": "^3.0.0",
-    "@pagopa/openapi-codegen-ts": "^12.1.2",
     "@types/express": "^4.17.16",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.15.11",
@@ -72,6 +73,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.11",
+    "@pagopa/openapi-codegen-ts": "^13.0.1",
     "@pagopa/ts-commons": "^10.14.2",
     "@stoplight/elements": "^7.7.18",
     "@stoplight/prism-cli": "^4.10.5",
