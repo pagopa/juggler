@@ -3,16 +3,21 @@ import { pipe } from 'fp-ts/function';
 import SwaggerParser from '@apidevtools/swagger-parser';
 import * as E from 'fp-ts/Either';
 import { OpenAPIParser } from '../../domain/OpenAPISpec';
+import { Config } from '../../config';
 
-export const makeOpenAPIParser = (): OpenAPIParser => ({
+const makeJugglerBasePath = (hostname: string, port: number): string =>
+  `${hostname}:${port}`;
+
+export const makeOpenAPIParser = ({
+  hostname,
+  port,
+}: Config['server']): OpenAPIParser => ({
   parse: (url) =>
     pipe(
       TE.tryCatch(() => SwaggerParser.validate(url), E.toError),
-      TE.map(
-        (openapi) =>
-          // TODO: we should change the baseURL coming from the OpenAPI spec. We want them to have the Juggler's baseUrl.
-          // FIXME: Continue here
-          openapi
-      )
+      TE.map((openapi) => {
+        makeJugglerBasePath(hostname, port);
+        return openapi;
+      })
     ),
 });

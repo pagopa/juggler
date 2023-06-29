@@ -16,7 +16,7 @@ export const makeAppEnv = (config: Config): TE.TaskEither<Error, AppEnv> =>
     TE.Do,
     TE.apS('mock', makeMock(config.openapi.URL)),
     TE.apS('requestResponseStore', TE.of(makeRequestResponseStore([]))),
-    TE.apS('openAPIParser', TE.of(makeOpenAPIParser())),
+    TE.apS('openAPIParser', TE.of(makeOpenAPIParser(config.server))),
     TE.map(({ mock, requestResponseStore, openAPIParser }) => ({
       ...config,
       mock,
