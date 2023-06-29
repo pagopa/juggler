@@ -5,11 +5,11 @@ import { OpenAPI } from 'openapi-types';
 export type OpenAPISpec = OpenAPI.Document;
 
 /**
- * This type express the capability to parse an OpenAPI specification from an URL.
+ * This type express the capability to parse an OpenAPI specification from a URL.
  */
 export type OpenAPIParser = {
   /**
-   * Given an URL, parse the OpenAPI specification.
+   * Given a URL, parse the OpenAPI specification.
    */
   parse: (url: string) => TE.TaskEither<Error, OpenAPISpec>;
 };
