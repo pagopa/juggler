@@ -20,9 +20,9 @@ describe('processRequest', () => {
   it('should return the response defined by user if any', async () => {
     const { env, envData } = makeFakeCapabilities();
 
-    const actual = await processRequest(
-      envData.customResponseDefinition.anHttpRequest
-    )(env)();
+    const actual = await processRequest({
+      ...envData.customResponseDefinition.anHttpRequest,
+    })(env)();
     const expected = envData.customResponseDefinition.anHttpResponse;
     expect(env.mock.generateResponse).toBeCalledTimes(0);
     expect(actual).toStrictEqual(E.right(expected));

@@ -8,6 +8,7 @@ import * as O from 'fp-ts/Option';
 import * as R from 'fp-ts/Reader';
 import { Capabilities } from '../domain/Capabilities';
 import { HttpRequest } from '../domain/RequestResponse';
+import { matches } from '../domain/CustomResponseDefinition';
 
 /**
  * This function is the entry point for processing an HTTP request. Its goal is
@@ -24,7 +25,7 @@ export const processRequest = (request: HttpRequest) =>
     R.map(({ mock, requestResponseWriter, listCustomResponseDefinition }) =>
       pipe(
         listCustomResponseDefinition(),
-        RA.findFirst(({ match }) => match === request),
+        RA.findFirst(({ match }) => matches(match, request)),
         O.fold(
           () => mock.generateResponse(request),
           ({ response }) => TE.of(response)
