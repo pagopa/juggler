@@ -1,0 +1,20 @@
+name: GitHub Release
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  github_release:
+    name: GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@c9b46fe7aad9f02afd89b12450b780f52dacfb2d
+        with:
+          draft: false
+          generate_release_notes: true

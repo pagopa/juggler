@@ -1,63 +1,94 @@
 # The Juggler
 
-> :warning: **This project is still a WIP and may change drastically**: Be very careful here!
+> **Warning**
+> **This project is still a WIP and may change drastically**
 
 Are you looking for a quick way to mock some endpoints given an open API? The Juggler can do what you are looking for.
 
-## How to run it
+## Requirements
 
-Install all the dependencies with the following command:
+- [Node.js](https://nodejs.org/docs/latest-v18.x/api/index.html)
+- [npm CLI](https://docs.npmjs.com/cli/v9)
+- [Optional] [Docker](https://www.docker.com/get-started) or equivalent software (e.g. [podman](https://podman.io/)).
 
-``` sh
-npm install
+## Local development
+
+Before you start, make sure you have complete the following steps:
+- Install the dependencies: `npm install`.
+- [Optional] Create a `.env.local` starting from `.env.default` and change the values.
+  - Otherwise the system will use `.env.default`.
+
+### Run the Juggler locally
+
+Run the following command from the root folder.
+
+``` bash
+npm run dev
 ```
 
-Then, generate the Juggler code from its OpenAPI with the following command:
+Open [http://localhost:3000/ui/dashboard](http://localhost:3000/ui/dashboard) with your browser to see the dashboard.
+
+Open [http://localhost:3000/ui/openapi](http://localhost:3000/ui/openapi) with your browser to see the open-api documentation.
+
+### Useful commands
+
+Generate required code from internal open-api definition:
 
 ``` sh
 npm run generate:api
 ```
 
-To spin up the mock just run the following command:
+Checks the types
 
 ``` sh
-npm run start
+npm run compile
 ```
 
-You can access the dashboard by visiting the path `/ui/dashboard`.
+Code linting and formatting
 
-If you want to take a look at an HTML version of the OpenAPI, you can visit the path `/ui/openapi`.
+``` sh
+npm run lint
 
-## Build the container image
+# this command fixes fixable errors
+npm run lint -- --fix
 
-> Prerequisite:
-> * Have [Docker](https://www.docker.com/get-started) or equivalent software (e.g. [podman](https://podman.io/)) installed.
+npm run format
+```
 
-To build the container image, follow these steps:
+### Build and run the container image locally
 
-Build the container image using the `Dockerfile` included in the project directory:
+Run the following commands from the root folder.
 
 ``` sh
 # docker
 docker build -t your-image-name .
-
-# podman
-podman build -t your-image-name .
 ```
-
-This command will create a new Docker image with the specified name (`your-image-name`) and tag (`latest` by default) based on the Dockerfile.
 
 Once the image has been built, you can run it using the run command:
 
 ``` sh
 # docker
-docker run -p 8080:3000 -e OPENAPI_URL=https://<path-to-openapi> your-image-name
-
-# podman
-podman run -p 8080:3000 -e OPENAPI_URL=https://<path-to-openapi> your-image-name
+docker run -p 3000:3000 -e OPENAPI_URL=https://<path-to-openapi> your-image-name
 ```
 
-This command will start a new container based on the image you just built and map port 3000 in the container to port 8080 on your local machine. You should now be able to access the project by visiting http://localhost:8080 in your web browser.
+## Run as docker image taken from registry
+
+``` sh
+docker run -p 3000:3000 -e OPENAPI_URL=path-to-your-openapi ghcr.io/pagopa/juggler:latest
+```
 
 ## Examples
-You can find some examples [here](./docs/examples/README.md).
+You can find some examples on [./docs/examples/README.md](./docs/examples/README.md) file.
+
+## Changelog
+
+To generate the changelog, we are using [changesets](https://github.com/changesets/changesets).  
+When you want to add some information you want to show into the changelog, you can run `npx changeset` or `npm run changeset`
+and follow the wizard: changeset will ask you what kind of changes you made (major, minor, patch) and also a summary; 
+the text you enter the summary is what will be visible into the CHANGELOG file.
+
+The `.github/workflows/changelog.yaml` workflow is an action that uses the [changeset's action](https://github.com/changesets/action) 
+we use to convert the changes tracked with `npm run changeset` into a `CHANGELOG.md` file.
+It will, then, create a PR with the proposed changes (it will bump the version, update the `CHANGELOG.md` file, ...).  
+If many changes happen when that PR is open, changeset's bot automatically updates it according to the changes (it looks to 
+the `.changeset` folder).

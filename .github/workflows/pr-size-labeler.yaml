@@ -1,0 +1,18 @@
+name: PR Size labeler
+
+on: pull_request
+
+permissions:
+  pull-requests: write
+
+jobs:
+  check_pr_size:
+    runs-on: ubuntu-latest
+    name: Add PR size label
+    steps:
+      - uses: pagopa/github-actions-template/check-pr-size@d91a1fd0b913c9830589be5d86cdb71c90813fae # v1.5.4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          ignored_files: 'package-lock.json, docs/, .changeset/'
+          min_size: 200
+          max_size: 400
