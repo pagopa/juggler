@@ -20,9 +20,9 @@ const makeAPIRequestResponse = (
     body: input.request.body || {},
   },
   response: {
-    status: input.response.status,
+    status: input.response.statusCode,
     headers: input.response.headers || {},
-    body: input.response.data || {},
+    body: input.response.body || {},
   },
 });
 

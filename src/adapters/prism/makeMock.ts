@@ -36,7 +36,14 @@ const makePrismHttp = (openapi: string): TE.TaskEither<Error, PrismHttp> =>
  */
 export const makeMockFromPrismHttp = (prismHttp: PrismHttp): Mock => ({
   generateResponse: (req) =>
-    TE.tryCatch(() => prismHttp.request(req.url.path, req), E.toError),
+    pipe(
+      TE.tryCatch(() => prismHttp.request(req.url.path, req), E.toError),
+      TE.map(({ status, headers, data }) => ({
+        statusCode: status,
+        headers,
+        body: data,
+      }))
+    ),
 });
 
 /**

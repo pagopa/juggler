@@ -1,31 +1,48 @@
 import * as TE from 'fp-ts/TaskEither';
 import { mock } from 'jest-mock-extended';
 import { Capabilities } from '../Capabilities';
-import { MockOutput, MockRequest } from '../Mock';
+import { CustomResponseDefinition } from '../CustomResponseDefinition';
+import { HttpRequest, HttpResponse } from '../RequestResponse';
 
-const aMockRequest: MockRequest = {
+const anHttpRequest: HttpRequest = {
   method: 'get',
   url: { path: 'http://localhost:8080/hello?name=Rupert' },
 };
 
-const aMockOutput: MockOutput = {
-  status: 200,
+const anHttpResponse: HttpResponse = {
+  statusCode: 200,
   headers: {},
-  data: {},
-  request: aMockRequest,
-  violations: { input: [], output: [] },
+  body: {},
+};
+
+const customResponseDefinition: CustomResponseDefinition = {
+  match: {
+    method: 'post',
+    url: { path: 'http://localhost:8080/hello?name=Rupert' },
+  },
+  response: {
+    statusCode: 200,
+    headers: {
+      'x-custom': 'custom-response-definition',
+    },
+    body: {},
+  },
 };
 
 export const data = {
   mock: {
-    aMockRequest,
-    aMockOutput,
+    anHttpRequest,
+    anHttpResponse,
   },
   requestResponse: {
     aRequestResponse: {
-      request: aMockRequest,
-      response: aMockOutput,
+      request: anHttpRequest,
+      response: anHttpResponse,
     },
+  },
+  customResponseDefinition: {
+    anHttpRequest: customResponseDefinition.match,
+    anHttpResponse: customResponseDefinition.response,
   },
 };
 
@@ -34,15 +51,20 @@ export const makeFakeCapabilities = (defaultData: typeof data = data) => {
     mock: mock<Capabilities['mock']>(),
     requestResponseReader: mock<Capabilities['requestResponseReader']>(),
     requestResponseWriter: mock<Capabilities['requestResponseWriter']>(),
+    listCustomResponseDefinition:
+      mock<Capabilities>().listCustomResponseDefinition,
   };
   // default behavior
   mocked.mock.generateResponse.mockReturnValue(
-    TE.right(defaultData.mock.aMockOutput)
+    TE.right(defaultData.mock.anHttpResponse)
   );
   mocked.requestResponseWriter.record.mockImplementation(TE.of);
   mocked.requestResponseReader.list.mockReturnValue(
     TE.of([defaultData.requestResponse.aRequestResponse])
   );
+  mocked.listCustomResponseDefinition.mockReturnValue([
+    customResponseDefinition,
+  ]);
 
   // return within data
   return { env: mocked, envData: defaultData };
