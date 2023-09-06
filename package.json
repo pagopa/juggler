@@ -9,7 +9,7 @@
     },
     "openapi": {
       "pn": {
-        "deliveryURL": "https://github.com/pagopa/pn-delivery/raw/d499410/docs/openapi/api-external-b2b-pa-v1.yaml",
+        "deliveryURL": "https://raw.githubusercontent.com/pagopa/pn-delivery/5534854/docs/openapi/api-external-b2b-pa.yaml",
         "streamURL": "https://github.com/pagopa/pn-delivery-push/raw/a886f32/docs/openapi/api-external-b2b-webhook-v1.yaml"
       },
       "io": {
@@ -35,7 +35,7 @@
     "dev": "npm run generate:api && npm run compile && node -r dotenv/config dist/main.js dotenv_config_path=.env.default",
     "build": "npm run compile && next build",
     "lint": "next lint",
-    "format": "prettier --write \"./**/*.ts\"",
+    "format": "prettier --write \"./**/*.{ts,tsx}\"",
     "dev:pn": "OPENAPI_URL=$npm_package_config_openapi_pn_deliveryURL npm run dev",
     "dev:io": "OPENAPI_URL=$npm_package_config_openapi_io_apiPublicURL npm run dev",
     "dev:iosign": "OPENAPI_URL=$npm_package_config_openapi_iosign_issuerURL npm run dev",
@@ -54,7 +54,6 @@
     "@types/jest": "^29.4.0",
     "@types/node": "^18.15.11",
     "@types/react": "18.0.28",
-    "@types/swagger-ui-react": "^4.11.0",
     "concurrently": "^7.6.0",
     "dependency-check": "^4.1.0",
     "dotenv": "^16.0.3",
@@ -74,6 +73,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.11",
     "@pagopa/ts-commons": "^10.14.2",
+    "@stoplight/elements": "^7.7.18",
     "@stoplight/prism-cli": "^4.10.5",
     "@stoplight/prism-http": "^4.10.5",
     "@textea/json-viewer": "^1.24.5",
@@ -85,7 +85,6 @@
     "newtype-ts": "^0.3.5",
     "next": "^13.1.6",
     "pino": "^8.8.0",
-    "swagger-ui-react": "^4.18.0",
     "swr": "^2.0.4"
   }
 }
